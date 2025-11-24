@@ -1,0 +1,10 @@
+# robots.txt for chirpy.studio
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://chirpy.studio/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
