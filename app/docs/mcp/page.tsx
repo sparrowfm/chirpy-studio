@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'MCP Workflow Tools | Chirpy Studio',
-  description: 'Model Context Protocol tools for automating podcast episode creation with Chirpy Studio',
+  description: 'Build AI-powered podcast creation applications with Chirpy Studio\'s Model Context Protocol integration',
 }
 
 export default function MCPDocsPage() {
@@ -28,25 +28,28 @@ export default function MCPDocsPage() {
       <section className="border-b border-[var(--border)] bg-gradient-to-br from-[var(--background)] to-[var(--card-bg)]">
         <div className="max-w-4xl mx-auto px-6 py-16 text-center">
           <h1 className="text-5xl font-black mb-6">
-            <span style={{ color: '#F97316' }}>MCP Workflow Tools</span>
+            <span style={{ color: '#F97316' }}>Build with Chirpy Studio</span>
           </h1>
-          <p className="text-xl text-[var(--text-muted)] max-w-2xl mx-auto mb-8">
-            Automate complete podcast episode creation pipelines with Model Context Protocol integration for Claude Code and Claude Desktop.
+          <p className="text-xl text-[var(--text-muted)] max-w-2xl mx-auto mb-4">
+            Create AI-powered applications that generate complete podcast episodes—from research to final mix—using natural language.
+          </p>
+          <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto mb-8">
+            Model Context Protocol (MCP) tools for Claude Code and Claude Desktop
           </p>
           <div className="flex gap-4 justify-center">
             <a
-              href="#quick-start"
+              href="#installation"
               className="px-6 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-shadow"
               style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
             >
               Get Started
             </a>
             <a
-              href="#tools"
+              href="#api-reference"
               className="px-6 py-3 rounded-xl font-semibold border-2 hover:bg-[var(--card-bg)] transition-colors"
               style={{ borderColor: '#F97316', color: '#F97316' }}
             >
-              View Tools
+              API Reference
             </a>
           </div>
         </div>
@@ -54,57 +57,133 @@ export default function MCPDocsPage() {
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
-        {/* Overview */}
+        {/* What You Can Build */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6" style={{ color: '#F97316' }}>
-            Overview
+            What You Can Build
           </h2>
           <div className="space-y-4 text-[var(--text-muted)]">
             <p>
-              The Tier 3 Workflow Tools solve the <strong>40-minute timeout problem</strong> by implementing an async job pattern. Instead of blocking for the entire episode creation pipeline, these tools return a job ID immediately and allow you to poll for completion.
+              Chirpy Studio MCP tools enable you to programmatically create production-quality podcast episodes using AI. Perfect for building:
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+                <h3 className="font-semibold text-[var(--foreground)] mb-2">Content Automation Platforms</h3>
+                <p className="text-sm">
+                  Build services that generate daily news podcasts, educational content series, or automated audio newsletters from text sources.
+                </p>
+              </div>
+              <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+                <h3 className="font-semibold text-[var(--foreground)] mb-2">Podcast-as-a-Service</h3>
+                <p className="text-sm">
+                  Create white-label podcast creation tools for clients who want AI-generated audio content without technical expertise.
+                </p>
+              </div>
+              <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+                <h3 className="font-semibold text-[var(--foreground)] mb-2">AI Agents & Workflows</h3>
+                <p className="text-sm">
+                  Integrate podcast creation into Claude-powered applications—generate episodes from research, convert blog posts to audio, or create summaries.
+                </p>
+              </div>
+              <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+                <h3 className="font-semibold text-[var(--foreground)] mb-2">Educational Tools</h3>
+                <p className="text-sm">
+                  Build learning platforms that transform written content into engaging audio lessons with professional sound design.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6" style={{ color: '#D946EF' }}>
+            How It Works
+          </h2>
+          <div className="space-y-4 text-[var(--text-muted)]">
+            <p>
+              Chirpy Studio handles the entire podcast production pipeline—from script generation to final audio mastering. The MCP tools provide an async workflow interface:
             </p>
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-3">Pipeline Architecture</h3>
-              <div className="grid gap-3 text-sm">
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs">1</span>
+              <div className="grid gap-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">1</span>
                   <div>
-                    <span className="font-semibold text-[var(--foreground)]">Skylark</span>
-                    <span className="text-[var(--text-muted)]"> - Script generation (2-5 min)</span>
+                    <span className="font-semibold text-[var(--foreground)]">Start a Workflow</span>
+                    <p className="text-[var(--text-muted)] mt-1">Provide a topic and optional parameters. Returns a job ID immediately—no waiting.</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs">2</span>
+                <div className="flex items-start gap-3">
+                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">2</span>
                   <div>
-                    <span className="font-semibold text-[var(--foreground)]">Condor</span>
-                    <span className="text-[var(--text-muted)]"> - TTS audio (1-3 min)</span>
+                    <span className="font-semibold text-[var(--foreground)]">AI Creates Your Episode</span>
+                    <p className="text-[var(--text-muted)] mt-1">Script writing, voice synthesis, sound design, music selection, and audio mixing—all automated (40-60 min).</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white font-bold text-xs">3</span>
+                <div className="flex items-start gap-3">
+                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">3</span>
                   <div>
-                    <span className="font-semibold text-[var(--foreground)]">Magpie SDC</span>
-                    <span className="text-[var(--text-muted)]"> - Sound design planning (3-5 min)</span>
+                    <span className="font-semibold text-[var(--foreground)]">Poll for Progress</span>
+                    <p className="text-[var(--text-muted)] mt-1">Check job status anytime to get real-time progress updates and step-by-step completion tracking.</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center text-white font-bold text-xs">4</span>
+                <div className="flex items-start gap-3">
+                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">4</span>
                   <div>
-                    <span className="font-semibold text-[var(--foreground)]">Magpie Gather</span>
-                    <span className="text-[var(--text-muted)]"> - Asset download (5-10 min)</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold text-xs">5</span>
-                  <div>
-                    <span className="font-semibold text-[var(--foreground)]">Nightingale</span>
-                    <span className="text-[var(--text-muted)]"> - Mixing/mastering (10-15 min)</span>
+                    <span className="font-semibold text-[var(--foreground)]">Download Your Podcast</span>
+                    <p className="text-[var(--text-muted)] mt-1">Get a production-ready MP3 file with professional mixing, sound effects, and background music.</p>
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-[var(--border)] text-sm">
-                <strong className="text-[var(--foreground)]">Total Duration:</strong> 40-60 minutes end-to-end
+            </div>
+          </div>
+        </section>
+
+        {/* Installation */}
+        <section id="installation" className="mb-16 scroll-mt-20">
+          <h2 className="text-3xl font-bold mb-6" style={{ color: '#F97316' }}>
+            Installation
+          </h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">Claude Code</h3>
+              <p className="text-[var(--text-muted)] mb-4">
+                Add the Chirpy Studio MCP server to your Claude Code configuration:
+              </p>
+              <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+                <pre className="bg-[var(--background)] rounded-lg p-4 overflow-x-auto text-xs text-[var(--foreground)]">
+{`# Add to your Claude Code MCP configuration
+claude mcp add chirpy-studio \\
+  --transport http \\
+  https://api.chirpy.studio/mcp`}
+                </pre>
               </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">Claude Desktop</h3>
+              <p className="text-[var(--text-muted)] mb-4">
+                Add to your <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">claude_desktop_config.json</code>:
+              </p>
+              <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+                <pre className="bg-[var(--background)] rounded-lg p-4 overflow-x-auto text-xs text-[var(--foreground)]">
+{`{
+  "mcpServers": {
+    "chirpy-studio": {
+      "type": "http",
+      "url": "https://api.chirpy.studio/mcp"
+    }
+  }
+}`}
+                </pre>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-50 to-magenta-50 dark:from-orange-950/20 dark:to-magenta-950/20 rounded-2xl p-6 border border-orange-200 dark:border-orange-800">
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">🔑 API Key Required</h3>
+              <p className="text-sm text-[var(--text-muted)]">
+                You'll need a Chirpy Studio API key to use these tools. <a href="https://studio.chirpy.studio/settings/api" className="underline" style={{ color: '#F97316' }}>Get your API key</a> from your dashboard.
+              </p>
             </div>
           </div>
         </section>
@@ -112,99 +191,96 @@ export default function MCPDocsPage() {
         {/* Quick Start */}
         <section id="quick-start" className="mb-16 scroll-mt-20">
           <h2 className="text-3xl font-bold mb-6" style={{ color: '#D946EF' }}>
-            Quick Start
+            Quick Start Example
           </h2>
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">Using with Claude Code</h3>
+              <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">Create Your First Episode</h3>
               <p className="text-[var(--text-muted)] mb-4">
-                Workflow tools are automatically available in Claude Code conversations. Simply describe what you want to create:
+                Use natural language to start creating podcast episodes:
               </p>
               <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] space-y-4">
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">USER:</div>
-                  <div className="text-[var(--foreground)]">"Create an episode about Herman's mayoral campaign for the Briefly Remembered series"</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">YOU:</div>
+                  <div className="text-[var(--foreground)]">"Create a 5-minute podcast episode about the history of the internet for my tech series"</div>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold mb-2" style={{ color: '#F97316' }}>CLAUDE CODE:</div>
+                  <div className="text-xs font-semibold mb-2" style={{ color: '#F97316' }}>CLAUDE:</div>
                   <div className="text-[var(--text-muted)] text-sm space-y-2">
-                    <p>I'll start the episode creation workflow.</p>
+                    <p>I'll start creating your episode about the history of the internet.</p>
                     <div className="bg-[var(--background)] rounded-lg p-3 font-mono text-xs">
-                      <div>✓ Episode workflow started successfully!</div>
-                      <div>Job ID: workflow_01HABCDEFG123456789</div>
-                      <div>Episode ID: ep_01HABCDEFG123456789</div>
+                      <div>✓ Workflow started!</div>
+                      <div>Job ID: workflow_abc123</div>
+                      <div>Episode ID: ep_xyz789</div>
+                      <div className="mt-2 text-[var(--text-muted)]">Processing: Script generation → Voice synthesis → Sound design → Final mix</div>
+                      <div className="text-[var(--text-muted)]">Estimated time: 40-60 minutes</div>
                     </div>
-                    <p>Orchestrating complete pipeline:</p>
-                    <div className="space-y-1 text-xs">
-                      <div>1. ✓ Skylark (script generation)</div>
-                      <div>2. → Condor (TTS audio)</div>
-                      <div>3. → Magpie SDC (sound design)</div>
-                      <div>4. → Magpie Gather (asset download)</div>
-                      <div>5. → Nightingale (mixing/mastering)</div>
-                    </div>
-                    <p className="text-xs">Estimated completion: 40-60 minutes</p>
+                    <p className="text-xs">I'll monitor the progress and let you know when it's ready!</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">Checking Progress</h3>
+              <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">Check Progress Anytime</h3>
               <p className="text-[var(--text-muted)] mb-4">
-                Ask Claude Code to check the status of your workflow at any time:
+                Ask about your job status at any time:
               </p>
               <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-                <div className="text-[var(--foreground)]">"What's the status of my episode job?"</div>
-                <div className="mt-4 text-[var(--text-muted)] text-sm">
-                  <div className="bg-[var(--background)] rounded-lg p-3 font-mono text-xs space-y-1">
-                    <div>Current Jobs: 1</div>
-                    <div>• Job workflow_01HABCDEFG123456789 (60% complete)</div>
-                    <div className="ml-4">Status: Processing</div>
-                    <div className="ml-4">Current Step: Magpie Gather</div>
-                    <div className="ml-4">Progress: 3/5 steps complete</div>
-                    <div className="ml-4">Time Remaining: 20-30 minutes</div>
-                  </div>
+                <div className="text-[var(--foreground)] mb-3">"How's my podcast episode coming along?"</div>
+                <div className="bg-[var(--background)] rounded-lg p-3 font-mono text-xs space-y-1">
+                  <div className="text-green-500">✓ Script generation complete</div>
+                  <div className="text-green-500">✓ Voice synthesis complete</div>
+                  <div className="text-blue-500">⟳ Sound design in progress (65%)</div>
+                  <div className="text-[var(--text-muted)]">○ Final mix pending</div>
+                  <div className="mt-2 text-[var(--text-muted)]">Overall: 65% complete • ~15 minutes remaining</div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Available Tools */}
-        <section id="tools" className="mb-16 scroll-mt-20">
+        {/* API Reference */}
+        <section id="api-reference" className="mb-16 scroll-mt-20">
           <h2 className="text-3xl font-bold mb-6" style={{ color: '#F97316' }}>
-            Available Tools
+            API Reference
           </h2>
+          <p className="text-[var(--text-muted)] mb-6">
+            Four MCP tools for managing podcast episode workflows. All tools use async job patterns—start workflows quickly and poll for completion.
+          </p>
           <div className="space-y-6">
             {/* Tool 1 */}
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
               <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">
-                workflow_start_episode
+                <code className="text-base">workflow_start_episode</code>
               </h3>
               <p className="text-[var(--text-muted)] mb-4">
-                Start a complete async episode creation workflow. Returns immediately with a job ID.
+                Start an async workflow to create a complete podcast episode. Returns a job ID immediately—processing happens in the background (40-60 min).
               </p>
               <div className="space-y-3">
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">INPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">PARAMETERS</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
-  "seriesId": "series-123",        // Required
-  "topic": "Episode topic",        // Required
-  "title": "Episode Title",        // Optional
-  "researchData": "...",           // Optional
-  "scriptOutline": "..."           // Optional
+  "seriesSlug": "my-tech-show",            // Required: Your podcast series identifier
+  "topic": "The history of the internet", // Required: Episode topic/description
+  "title": "Episode 42: The Internet",    // Optional: Custom title
+  "targetLength": 300,                    // Optional: Target duration in seconds
+  "researchData": "Additional context",   // Optional: Pre-researched content to include
+  "voicePreference": "conversational"     // Optional: Voice style (conversational|professional|energetic)
 }`}
                   </pre>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">OUTPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">RESPONSE</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
   "success": true,
-  "jobId": "workflow_01HABCDEFG123456789",
-  "episodeId": "ep_01HABCDEFG123456789",
-  "estimatedDuration": "40-60 minutes"
+  "jobId": "workflow_01JCXA8K2M9N6P7Q8R9S0T1U",
+  "episodeId": "ep_01JCXA8K2M9N6P7Q8R9S0T1U",
+  "status": "queued",
+  "estimatedDuration": "40-60 minutes",
+  "createdAt": "2025-01-15T10:30:00Z"
 }`}
                   </pre>
                 </div>
@@ -214,34 +290,37 @@ export default function MCPDocsPage() {
             {/* Tool 2 */}
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
               <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">
-                workflow_get_job_status
+                <code className="text-base">workflow_get_job_status</code>
               </h3>
               <p className="text-[var(--text-muted)] mb-4">
-                Get current status and progress of a workflow job. Poll this endpoint to track progress.
+                Check the current status and progress of a running workflow. Poll every 5-10 seconds for real-time updates.
               </p>
               <div className="space-y-3">
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">INPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">PARAMETERS</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
-  "jobId": "workflow_01HABCDEFG123456789"
+  "jobId": "workflow_01JCXA8K2M9N6P7Q8R9S0T1U"  // Required: Job ID from workflow_start_episode
 }`}
                   </pre>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">OUTPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">RESPONSE</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
   "success": true,
-  "jobId": "workflow_01HABCDEFG123456789",
-  "status": "processing",
-  "currentStep": "magpie_sdc",
+  "jobId": "workflow_01JCXA8K2M9N6P7Q8R9S0T1U",
+  "episodeId": "ep_01JCXA8K2M9N6P7Q8R9S0T1U",
+  "status": "processing",           // queued | processing | completed | failed | cancelled
+  "currentStep": "sound_design",    // Current pipeline step
   "progress": {
-    "completed": 2,
-    "total": 5,
-    "percent": 40
+    "percent": 65,                  // Overall completion percentage
+    "stepsCompleted": 3,
+    "stepsTotal": 5
   },
-  "estimatedTimeRemaining": "25-35 minutes"
+  "estimatedTimeRemaining": "15 minutes",
+  "audioUrl": null,                 // Available when status === "completed"
+  "error": null                     // Error message if status === "failed"
 }`}
                   </pre>
                 </div>
@@ -251,29 +330,30 @@ export default function MCPDocsPage() {
             {/* Tool 3 */}
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
               <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">
-                workflow_cancel_job
+                <code className="text-base">workflow_cancel_job</code>
               </h3>
               <p className="text-[var(--text-muted)] mb-4">
-                Cancel a running workflow job. Can only cancel jobs in queued or processing status.
+                Cancel a queued or in-progress workflow. Completed jobs cannot be cancelled. Resources will be cleaned up automatically.
               </p>
               <div className="space-y-3">
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">INPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">PARAMETERS</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
-  "jobId": "workflow_01HABCDEFG123456789",
-  "reason": "User requested cancellation"  // Optional
+  "jobId": "workflow_01JCXA8K2M9N6P7Q8R9S0T1U",  // Required: Job ID to cancel
+  "reason": "User requested cancellation"        // Optional: Reason for logging
 }`}
                   </pre>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">OUTPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">RESPONSE</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
   "success": true,
-  "jobId": "workflow_01HABCDEFG123456789",
-  "stepsCancelled": 3,
-  "message": "Job cancelled successfully"
+  "jobId": "workflow_01JCXA8K2M9N6P7Q8R9S0T1U",
+  "status": "cancelled",
+  "cancelledAt": "2025-01-15T11:15:00Z",
+  "message": "Workflow cancelled successfully"
 }`}
                   </pre>
                 </div>
@@ -283,37 +363,43 @@ export default function MCPDocsPage() {
             {/* Tool 4 */}
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
               <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">
-                workflow_list_jobs
+                <code className="text-base">workflow_list_jobs</code>
               </h3>
               <p className="text-[var(--text-muted)] mb-4">
-                List workflow jobs with filtering options. Useful for monitoring active workflows.
+                List all workflows for your account with optional filtering. Great for building dashboards or monitoring multiple jobs.
               </p>
               <div className="space-y-3">
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">INPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">PARAMETERS</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
-  "seriesId": "series-123",     // Optional filter
-  "status": "processing",       // Optional filter
-  "limit": 20                   // Optional (default: 50)
+  "seriesSlug": "my-tech-show",    // Optional: Filter by podcast series
+  "status": "processing",          // Optional: Filter by status (queued|processing|completed|failed|cancelled)
+  "limit": 20,                     // Optional: Max results (default: 50, max: 100)
+  "offset": 0                      // Optional: Pagination offset
 }`}
                   </pre>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">OUTPUT:</div>
+                  <div className="text-xs font-semibold text-[var(--text-muted)] mb-2">RESPONSE</div>
                   <pre className="bg-[var(--background)] rounded-lg p-3 overflow-x-auto text-xs text-[var(--foreground)]">
 {`{
   "success": true,
   "jobs": [
     {
-      "jobId": "workflow_01HABCDEFG123456789",
-      "episodeId": "ep_01HABCDEFG123456789",
+      "jobId": "workflow_01JCXA8K2M9N6P7Q8R9S0T1U",
+      "episodeId": "ep_01JCXA8K2M9N6P7Q8R9S0T1U",
+      "seriesSlug": "my-tech-show",
+      "topic": "The history of the internet",
       "status": "processing",
-      "progress": { "percent": 60 },
-      "currentStep": "magpie_gather"
+      "progress": { "percent": 65 },
+      "createdAt": "2025-01-15T10:30:00Z",
+      "updatedAt": "2025-01-15T11:05:00Z"
     }
   ],
-  "total": 1
+  "total": 1,
+  "limit": 20,
+  "offset": 0
 }`}
                   </pre>
                 </div>
@@ -322,135 +408,86 @@ export default function MCPDocsPage() {
           </div>
         </section>
 
-        {/* Best Practices */}
+        {/* Use Cases */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6" style={{ color: '#D946EF' }}>
-            Best Practices
+            Example Use Cases
           </h2>
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-2">Polling Intervals</h3>
-              <p className="text-[var(--text-muted)] text-sm mb-3">
-                Poll at reasonable intervals to balance responsiveness with server load:
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">📰 Daily News Podcast</h3>
+              <p className="text-sm text-[var(--text-muted)] mb-3">
+                Automatically generate daily news summaries from RSS feeds or web scraping. Schedule workflows to run every morning with curated topics.
               </p>
-              <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span><strong>Recommended:</strong> 5-10 second intervals</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-red-500">✗</span>
-                  <span><strong>Too frequent:</strong> &lt;2 seconds (causes rate limiting)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-red-500">✗</span>
-                  <span><strong>Too slow:</strong> &gt;60 seconds (poor user experience)</span>
-                </li>
-              </ul>
+              <div className="text-xs bg-[var(--background)] px-2 py-1 rounded inline-block" style={{ color: '#F97316' }}>
+                Automation • Scheduling • Content Aggregation
+              </div>
             </div>
 
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-2">Error Handling</h3>
-              <p className="text-[var(--text-muted)] text-sm mb-3">
-                Always handle both success and failure states:
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">🎓 Educational Content</h3>
+              <p className="text-sm text-[var(--text-muted)] mb-3">
+                Convert written lessons into audio format. Perfect for language learning apps, textbook companions, or online courses.
               </p>
-              <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span>Check for both <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">completed</code> and <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">failed</code> status</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span>Set reasonable timeouts (60 minutes recommended)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span>Provide clear error messages to users</span>
-                </li>
-              </ul>
+              <div className="text-xs bg-[var(--background)] px-2 py-1 rounded inline-block" style={{ color: '#F97316' }}>
+                EdTech • Accessibility • Content Transformation
+              </div>
             </div>
 
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-2">User Feedback</h3>
-              <p className="text-[var(--text-muted)] text-sm mb-3">
-                Keep users informed of progress:
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">✍️ Blog-to-Podcast</h3>
+              <p className="text-sm text-[var(--text-muted)] mb-3">
+                Automatically turn blog posts into engaging audio episodes. Great for content creators who want to reach audio-first audiences.
               </p>
-              <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span>Show current step and progress percentage</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span>Display estimated time remaining</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span>Provide job ID for support and tracking</span>
-                </li>
-              </ul>
+              <div className="text-xs bg-[var(--background)] px-2 py-1 rounded inline-block" style={{ color: '#F97316' }}>
+                Content Marketing • Multi-Format Publishing
+              </div>
+            </div>
+
+            <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">🤖 AI Research Assistant</h3>
+              <p className="text-sm text-[var(--text-muted)] mb-3">
+                Build Claude-powered workflows that research topics, synthesize findings, and deliver them as polished audio reports.
+              </p>
+              <div className="text-xs bg-[var(--background)] px-2 py-1 rounded inline-block" style={{ color: '#F97316' }}>
+                AI Agents • Research Automation • Knowledge Work
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Troubleshooting */}
+        {/* Best Practices */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6" style={{ color: '#F97316' }}>
-            Troubleshooting
+            Best Practices
           </h2>
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-2">Job Stuck in Processing</h3>
-              <p className="text-[var(--text-muted)] text-sm mb-3">
-                If a job stays at the same step for more than 20 minutes:
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">⏱️ Polling Strategy</h3>
+              <p className="text-sm text-[var(--text-muted)]">
+                Poll every <strong>5-10 seconds</strong> for optimal balance. Avoid polling faster than 2 seconds (rate limiting) or slower than 60 seconds (poor UX).
               </p>
-              <ol className="space-y-2 text-sm text-[var(--text-muted)] list-decimal list-inside">
-                <li>Wait 5 more minutes (some steps are genuinely slow)</li>
-                <li>Check the specific step that's running</li>
-                <li>Cancel and retry if needed using <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">workflow_cancel_job</code></li>
-              </ol>
             </div>
 
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-2">Job Not Found</h3>
-              <p className="text-[var(--text-muted)] text-sm mb-3">
-                If you get a "job not found" error:
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">🔄 Handle All States</h3>
+              <p className="text-sm text-[var(--text-muted)]">
+                Check for <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">completed</code>, <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">failed</code>, and <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">cancelled</code> status. Always handle errors gracefully.
               </p>
-              <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                <li className="flex items-start gap-2">
-                  <span>•</span>
-                  <span>Verify the job ID format (should start with <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">workflow_</code>)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span>•</span>
-                  <span>Use <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">workflow_list_jobs</code> to see active jobs</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span>•</span>
-                  <span>Check if the job was cancelled or the episode was deleted</span>
-                </li>
-              </ul>
             </div>
 
             <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
-              <h3 className="font-semibold text-[var(--foreground)] mb-2">Progress Not Updating</h3>
-              <p className="text-[var(--text-muted)] text-sm mb-3">
-                If progress percentage stays the same:
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">📊 Show Progress</h3>
+              <p className="text-sm text-[var(--text-muted)]">
+                Display current step, progress percentage, and time remaining. Store job IDs for user reference and support.
               </p>
-              <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                <li className="flex items-start gap-2">
-                  <span>•</span>
-                  <span>Verify you're calling <code className="text-xs bg-[var(--background)] px-1 py-0.5 rounded">workflow_get_job_status</code> each time (not caching)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span>•</span>
-                  <span>Check individual step statuses in the response</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span>•</span>
-                  <span>If stuck for more than 20 minutes, cancel and retry</span>
-                </li>
-              </ul>
+            </div>
+
+            <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)]">
+              <h3 className="font-semibold text-[var(--foreground)] mb-2">⏳ Set Timeouts</h3>
+              <p className="text-sm text-[var(--text-muted)]">
+                Workflows take <strong>40-60 minutes</strong>. Set appropriate timeouts (75 min recommended) and notify users of long-running processes.
+              </p>
             </div>
           </div>
         </section>
@@ -458,17 +495,26 @@ export default function MCPDocsPage() {
         {/* Footer CTA */}
         <section className="text-center py-12">
           <div className="bg-gradient-to-br from-[var(--card-bg)] to-[var(--background)] rounded-2xl p-8 border border-[var(--border)]">
-            <h2 className="text-2xl font-bold mb-4 text-[var(--foreground)]">Ready to Get Started?</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[var(--foreground)]">Ready to Build?</h2>
             <p className="text-[var(--text-muted)] mb-6 max-w-2xl mx-auto">
-              Start automating your podcast episode creation with MCP workflow tools. Available now in Claude Code and Claude Desktop.
+              Get your API key and start creating AI-powered podcast applications today. Works with Claude Code, Claude Desktop, and custom integrations.
             </p>
-            <Link
-              href="/"
-              className="inline-block px-8 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-shadow"
-              style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
-            >
-              Back to Home
-            </Link>
+            <div className="flex gap-4 justify-center">
+              <a
+                href="https://studio.chirpy.studio/settings/api"
+                className="inline-block px-8 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-shadow"
+                style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
+              >
+                Get API Key
+              </a>
+              <Link
+                href="/"
+                className="inline-block px-8 py-3 rounded-xl font-semibold border-2 hover:bg-[var(--card-bg)] transition-colors"
+                style={{ borderColor: '#F97316', color: '#F97316' }}
+              >
+                Learn More
+              </Link>
+            </div>
           </div>
         </section>
       </main>
@@ -490,15 +536,23 @@ export default function MCPDocsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Studio Dashboard
+                Dashboard
               </a>
               <a
-                href="https://github.com/anthropics/claude-code"
+                href="https://modelcontextprotocol.io"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[var(--foreground)] transition-colors"
               >
-                Claude Code
+                About MCP
+              </a>
+              <a
+                href="https://github.com/anthropics/anthropic-quickstarts"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--foreground)] transition-colors"
+              >
+                Examples
               </a>
             </div>
           </div>
