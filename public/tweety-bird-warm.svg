@@ -1,0 +1,68 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient background circle -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D946EF;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FED7AA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FDBA74;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle with gradient -->
+  <circle cx="50" cy="50" r="48" fill="url(#bgGradient)"/>
+
+  <!-- Bird body (warm peach circle) -->
+  <circle cx="50" cy="55" r="28" fill="url(#bodyGradient)"/>
+
+  <!-- Head tuft (3 feathers on top) -->
+  <ellipse cx="44" cy="30" rx="3" ry="8" fill="#FB923C" transform="rotate(-20 44 30)"/>
+  <ellipse cx="50" cy="27" rx="3" ry="9" fill="#FB923C"/>
+  <ellipse cx="56" cy="30" rx="3" ry="8" fill="#FB923C" transform="rotate(20 56 30)"/>
+
+  <!-- White eye backgrounds (large!) -->
+  <ellipse cx="42" cy="48" rx="9" ry="11" fill="white"/>
+  <ellipse cx="58" cy="48" rx="9" ry="11" fill="white"/>
+
+  <!-- Warm magenta irises -->
+  <circle cx="42" cy="49" r="6" fill="#E879F9"/>
+  <circle cx="58" cy="49" r="6" fill="#E879F9"/>
+
+  <!-- Black pupils -->
+  <circle cx="43" cy="49" r="3.5" fill="#0B0E14"/>
+  <circle cx="59" cy="49" r="3.5" fill="#0B0E14"/>
+
+  <!-- Eye shine (highlights) -->
+  <circle cx="44" cy="47" r="1.5" fill="white" opacity="0.9"/>
+  <circle cx="60" cy="47" r="1.5" fill="white" opacity="0.9"/>
+
+  <!-- Long eyelashes (top) -->
+  <line x1="38" y1="42" x2="35" y2="38" stroke="#0B0E14" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="42" y1="40" x2="41" y2="35" stroke="#0B0E14" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="46" y1="42" x2="47" y2="37" stroke="#0B0E14" stroke-width="1.5" stroke-linecap="round"/>
+
+  <line x1="62" y1="42" x2="65" y2="38" stroke="#0B0E14" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="58" y1="40" x2="59" y2="35" stroke="#0B0E14" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="54" y1="42" x2="53" y2="37" stroke="#0B0E14" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Coral beak (small triangle) -->
+  <path d="M 50 58 L 54 61 L 50 64 Z" fill="#F472B6"/>
+
+  <!-- Cute little feet -->
+  <g fill="#F472B6">
+    <!-- Left foot -->
+    <ellipse cx="42" cy="78" rx="3" ry="2"/>
+    <line x1="40" y1="78" x2="38" y2="81" stroke="#F472B6" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="42" y1="78" x2="41" y2="81" stroke="#F472B6" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="44" y1="78" x2="44" y2="81" stroke="#F472B6" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Right foot -->
+    <ellipse cx="58" cy="78" rx="3" ry="2"/>
+    <line x1="56" y1="78" x2="56" y2="81" stroke="#F472B6" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="58" y1="78" x2="59" y2="81" stroke="#F472B6" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="60" y1="78" x2="62" y2="81" stroke="#F472B6" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>
