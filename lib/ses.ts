@@ -100,6 +100,33 @@ https://chirpy.studio`,
   });
 }
 
+export async function sendSignupNotification(email: string): Promise<void> {
+  await sendEmail({
+    to: FORWARD_TO,
+    subject: `[Chirpy Studio] New signup: ${email}`,
+    text: `New waitlist signup on chirpy.studio:
+
+Email: ${email}
+Time: ${new Date().toISOString()}
+
+---
+Chirpy Studio Waitlist`,
+    html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="font-family: system-ui, -apple-system, sans-serif; padding: 20px;">
+  <h2 style="color: #F97316;">New Waitlist Signup</h2>
+  <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+  <p style="color: #666; font-size: 14px;">Time: ${new Date().toISOString()}</p>
+</body>
+</html>
+    `,
+  });
+}
+
 export async function sendContactNotification(
   name: string,
   email: string,

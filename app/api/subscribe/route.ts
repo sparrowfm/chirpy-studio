@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addSubscriber, subscriberExists } from '@/lib/dynamodb';
-import { sendWelcomeEmail } from '@/lib/ses';
+import { sendWelcomeEmail, sendSignupNotification } from '@/lib/ses';
 
 // Simple in-memory rate limiting
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -78,11 +78,14 @@ export async function POST(request: NextRequest) {
       ipAddress: ip !== 'unknown' ? ip : undefined,
     });
 
-    // Send welcome email (don't fail if this fails)
+    // Send emails (don't fail if these fail)
     try {
-      await sendWelcomeEmail(normalizedEmail);
+      await Promise.all([
+        sendWelcomeEmail(normalizedEmail),
+        sendSignupNotification(normalizedEmail),
+      ]);
     } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError);
+      console.error('Failed to send emails:', emailError);
       // Continue anyway - the subscription was successful
     }
 
