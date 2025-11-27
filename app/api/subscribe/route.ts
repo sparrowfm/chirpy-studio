@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addSubscriber, subscriberExists } from '@/lib/dynamodb';
 import { sendWelcomeEmail, sendSignupNotification } from '@/lib/ses';
+import MailChecker from 'mailchecker';
 
 // Simple in-memory rate limiting
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -54,6 +55,14 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: 'Please enter a valid email address' },
+        { status: 400 }
+      );
+    }
+
+    // Check for disposable/temporary email addresses
+    if (!MailChecker.isValid(email)) {
+      return NextResponse.json(
+        { error: 'Please use a permanent email address (no temporary/disposable emails)' },
         { status: 400 }
       );
     }
