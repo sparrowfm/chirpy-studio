@@ -41,7 +41,7 @@ export default function HomePage() {
               className="text-sm px-4 py-2 rounded-full font-medium text-white"
               style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
             >
-              Stay Updated
+              Request Early Access
             </a>
           </div>
         </div>
@@ -57,18 +57,17 @@ export default function HomePage() {
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 opacity-0 animate-fade-in-up delay-100">
-            Making content that{' '}
-            <span className="gradient-text">should exist</span>,<br />
-            but couldn&apos;t.
+            The <span className="gradient-text">AI-native studio</span><br />
+            for narrative audio
           </h1>
 
           {/* Subhead */}
           <p className="text-xl sm:text-2xl text-[#A7B0C0] mb-4 opacity-0 animate-fade-in-up delay-200">
-            Until now.
+            From idea to podcast-ready episode in minutes, not months.
           </p>
 
           <p className="text-lg text-[#A7B0C0] max-w-2xl mx-auto mb-12 opacity-0 animate-fade-in-up delay-300">
-            Premium narrative audio. Personalized. At scale.
+            Chirpy Studio handles research, scripting, voice, sound design, and mixing—so you can focus on the stories that matter.
           </p>
 
           {/* CTA Buttons */}
@@ -78,13 +77,13 @@ export default function HomePage() {
               className="px-8 py-4 rounded-xl font-medium text-white text-lg shadow-lg hover:shadow-xl transition-all animate-pulse-glow"
               style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
             >
-              Stay Updated
+              Request Early Access
             </a>
             <a
               href="#contact"
               className="px-8 py-4 rounded-xl font-medium text-white text-lg border border-[#202635] hover:border-[#F97316] transition-colors bg-[#10141D]"
             >
-              Get in Touch
+              Talk to Us
             </a>
           </div>
         </div>
@@ -121,10 +120,10 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#F97316]/30 bg-[#F97316]/10 text-[#F97316] text-sm font-medium animate-float">
             <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse" />
-            Coming Soon
+            Early Access Opening Soon
           </div>
           <p className="mt-6 text-[#A7B0C0] max-w-lg mx-auto">
-            We&apos;re building something special. Be among the first to experience the future of narrative audio.
+            We&apos;re onboarding our first creators now. Request access to be among the first to transform how you produce audio content.
           </p>
         </div>
       </section>
@@ -133,12 +132,12 @@ export default function HomePage() {
       <section id="signup" className="py-20 px-6 bg-[#10141D]/50">
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Be first to <span className="gradient-text">experience</span> it
+            Request <span className="gradient-text">early access</span>
           </h2>
           <p className="text-[#A7B0C0] mb-8">
-            Join the waitlist and we&apos;ll notify you when we launch.
+            Join the waitlist and we&apos;ll reach out when a spot opens up.
           </p>
-          <EmailSignupForm variant="stacked" />
+          <EmailSignupForm variant="stacked" buttonText="Request Access" />
           <p className="text-xs text-[#A7B0C0] mt-4">
             No spam. Unsubscribe anytime.
           </p>

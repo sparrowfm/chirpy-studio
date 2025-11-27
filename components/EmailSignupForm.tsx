@@ -5,9 +5,10 @@ import { useState } from 'react';
 interface EmailSignupFormProps {
   className?: string;
   variant?: 'inline' | 'stacked';
+  buttonText?: string;
 }
 
-export function EmailSignupForm({ className = '', variant = 'inline' }: EmailSignupFormProps) {
+export function EmailSignupForm({ className = '', variant = 'inline', buttonText = 'Join the Waitlist' }: EmailSignupFormProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
@@ -73,7 +74,7 @@ export function EmailSignupForm({ className = '', variant = 'inline' }: EmailSig
           className="w-full px-6 py-3 rounded-xl font-medium text-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 animate-pulse-glow"
           style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
         >
-          {status === 'loading' ? 'Joining...' : 'Join the Waitlist'}
+          {status === 'loading' ? 'Submitting...' : buttonText}
         </button>
         {status === 'error' && (
           <p className="text-red-400 text-sm text-center">{message}</p>
