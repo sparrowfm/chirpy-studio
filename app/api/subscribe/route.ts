@@ -101,8 +101,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Return more specific error in development
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorName = error instanceof Error ? error.name : 'Unknown';
+    console.error(`Subscribe failed: ${errorName}: ${errorMessage}`);
+
+    // Temporarily expose error for debugging
     return NextResponse.json(
-      { error: 'Something went wrong. Please try again.' },
+      { error: `Subscribe failed: ${errorName}: ${errorMessage}` },
       { status: 500 }
     );
   }
