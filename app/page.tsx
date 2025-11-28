@@ -63,7 +63,7 @@ export default function HomePage() {
       <section className="py-24 px-6 bg-[#10141D]/50">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-2xl sm:text-3xl text-[#A7B0C0] leading-relaxed">
-            Deep research. Vivid storytelling. Rich sound design.
+            Deep research. Vivid storytelling. Rich sound design. Seamless distribution.
           </p>
           <p className="text-lg text-[#A7B0C0]">
             AI agents working together to bring your ideas to life.
