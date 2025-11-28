@@ -1,5 +1,6 @@
 import { Wordmark } from '@/components/Wordmark';
 import Link from 'next/link';
+// Link is still used in header/footer
 
 export const metadata = {
   title: 'Documentation | Chirpy Studio',
@@ -53,42 +54,40 @@ export default function DocsIndexPage() {
           </div>
 
           {/* REST API */}
-          <Link
-            href="/docs/api"
-            className="group gradient-border p-6 hover:bg-[#10141D]/80 transition-colors"
-          >
+          <div className="gradient-border p-6 relative overflow-hidden">
+            <div className="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-[#D946EF]/20 text-[#D946EF]">
+              Coming Soon
+            </div>
             <div className="text-3xl mb-4">⚡</div>
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-[#D946EF] transition-colors">
+            <h2 className="text-xl font-semibold mb-2">
               REST API
             </h2>
             <p className="text-[#A7B0C0] text-sm mb-4">
               Direct API access for custom integrations. Full control over the
               podcast creation pipeline.
             </p>
-            <div className="flex items-center gap-2 text-sm text-[#D946EF]">
-              <span>View Documentation</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <div className="flex items-center gap-2 text-sm text-[#A7B0C0]">
+              <span>Documentation coming soon</span>
             </div>
-          </Link>
+          </div>
 
           {/* MCP Tools */}
-          <Link
-            href="/docs/mcp"
-            className="group gradient-border p-6 hover:bg-[#10141D]/80 transition-colors"
-          >
+          <div className="gradient-border p-6 relative overflow-hidden">
+            <div className="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-[#F97316]/20 text-[#F97316]">
+              Coming Soon
+            </div>
             <div className="text-3xl mb-4">🔧</div>
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-[#F97316] transition-colors">
+            <h2 className="text-xl font-semibold mb-2">
               MCP Tools
             </h2>
             <p className="text-[#A7B0C0] text-sm mb-4">
               Model Context Protocol integration for Claude Code and Claude Desktop.
               Create podcast episodes using natural language.
             </p>
-            <div className="flex items-center gap-2 text-sm text-[#F97316]">
-              <span>View Documentation</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <div className="flex items-center gap-2 text-sm text-[#A7B0C0]">
+              <span>Documentation coming soon</span>
             </div>
-          </Link>
+          </div>
         </div>
 
         {/* Coming Soon */}
