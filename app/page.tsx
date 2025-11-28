@@ -38,12 +38,12 @@ export default function HomePage() {
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 opacity-0 animate-fade-in-up delay-100">
-            We make stories <span className="gradient-text">sing</span>
+            From idea to <span className="gradient-text">podcast</span> in minutes
           </h1>
 
           {/* Subhead */}
           <p className="text-xl sm:text-2xl text-[#A7B0C0] mb-12 opacity-0 animate-fade-in-up delay-200">
-            Enabling the future of audio storytelling.
+            AI-powered production. Full creative control. Ready-to-publish RSS.
           </p>
 
           {/* CTA Button */}
@@ -59,14 +59,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Teaser Section */}
+      {/* How It Works */}
       <section className="py-24 px-6 bg-[#10141D]/50">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-2xl sm:text-3xl text-[#A7B0C0] leading-relaxed">
-            Deep research. Vivid storytelling. Rich sound design. Seamless distribution.
+            Deep research. Vivid storytelling. Rich sound design. One-click publishing.
           </p>
           <p className="text-lg text-[#A7B0C0]">
-            AI agents working together to bring your ideas to life.
+            AI agents that handle the heavy lifting—while you stay in the driver&apos;s seat.
+          </p>
+        </div>
+      </section>
+
+      {/* Who It's For */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Built for <span className="gradient-text">storytellers at every scale</span>
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="p-4">
+              <div className="text-2xl mb-2">🎙️</div>
+              <p className="text-sm text-[#A7B0C0]">Podcasters</p>
+            </div>
+            <div className="p-4">
+              <div className="text-2xl mb-2">🏢</div>
+              <p className="text-sm text-[#A7B0C0]">Brands</p>
+            </div>
+            <div className="p-4">
+              <div className="text-2xl mb-2">📚</div>
+              <p className="text-sm text-[#A7B0C0]">Publishers</p>
+            </div>
+            <div className="p-4">
+              <div className="text-2xl mb-2">🚀</div>
+              <p className="text-sm text-[#A7B0C0]">Small Business</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Credibility */}
+      <section className="py-12 px-6 bg-[#10141D]/50">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-[#A7B0C0]">
+            Built by a team from one of the great podcast storytelling companies of our time.
           </p>
         </div>
       </section>
@@ -91,7 +127,7 @@ export default function HomePage() {
             Get in <span className="gradient-text">touch</span>
           </h2>
           <p className="text-[#A7B0C0] text-center mb-8">
-            Curious? We&apos;d love to hear from you.
+            Curious? Want to see our deck? We&apos;d love to hear from you.
           </p>
           <ContactForm />
         </div>
