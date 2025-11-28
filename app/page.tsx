@@ -38,12 +38,12 @@ export default function HomePage() {
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 opacity-0 animate-fade-in-up delay-100">
-            Your stories deserve to be <span className="gradient-text">heard</span>
+            We make stories <span className="gradient-text">sing</span>
           </h1>
 
           {/* Subhead */}
           <p className="text-xl sm:text-2xl text-[#A7B0C0] mb-12 opacity-0 animate-fade-in-up delay-200">
-            AI-powered tools for storytellers who want to delight audiences of all sizes.
+            The future of audio storytelling.
           </p>
 
           {/* CTA Button */}
@@ -62,11 +62,8 @@ export default function HomePage() {
       {/* Teaser Section */}
       <section className="py-24 px-6 bg-[#10141D]/50">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-2xl sm:text-3xl text-[#A7B0C0] leading-relaxed mb-8">
+          <p className="text-2xl sm:text-3xl text-[#A7B0C0] leading-relaxed">
             Words. Voices. Sound design. Music.
-          </p>
-          <p className="text-lg text-[#A7B0C0]">
-            The craft of audio storytelling is an art. We&apos;re building tools to help you share it with the world.
           </p>
         </div>
       </section>
