@@ -98,17 +98,17 @@ export function WaveformAnimation({ className = '' }: WaveformAnimationProps) {
 
 // Alternative: Pure CSS waveform (simpler, works without JS)
 export function WaveformAnimationCSS({ className = '' }: WaveformAnimationProps) {
-  const bars = Array.from({ length: 40 }, (_, i) => i);
+  const bars = Array.from({ length: 60 }, (_, i) => i);
 
   return (
-    <div className={`flex items-center justify-center gap-[3px] h-32 ${className}`}>
+    <div className={`flex items-center justify-center gap-[3px] sm:gap-[4px] md:gap-[5px] h-32 w-full max-w-3xl mx-auto ${className}`}>
       {bars.map((i) => (
         <div
           key={i}
-          className="w-[3px] rounded-full bg-gradient-to-b from-[#F97316] to-[#D946EF]"
+          className="w-[3px] sm:w-[4px] rounded-full bg-gradient-to-b from-[#F97316] to-[#D946EF]"
           style={{
             animation: `waveform 1.2s ease-in-out infinite`,
-            animationDelay: `${i * 0.05}s`,
+            animationDelay: `${i * 0.04}s`,
             height: '20%',
           }}
         />
