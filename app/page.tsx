@@ -43,7 +43,7 @@ export default function HomePage() {
 
           {/* Subhead */}
           <p className="text-xl sm:text-2xl text-[#A7B0C0] mb-12 opacity-0 animate-fade-in-up delay-200">
-            The future of audio storytelling.
+            Enabling the future of audio storytelling.
           </p>
 
           {/* CTA Button */}
