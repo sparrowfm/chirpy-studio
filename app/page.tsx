@@ -43,7 +43,7 @@ export default function HomePage() {
 
           {/* Subhead */}
           <p className="text-xl sm:text-2xl text-[#A7B0C0] mb-12 opacity-0 animate-fade-in-up delay-200">
-            AI-powered tools for storytellers who want to delight their audiences.
+            AI-powered tools for storytellers who want to delight audiences of all sizes.
           </p>
 
           {/* CTA Button */}
