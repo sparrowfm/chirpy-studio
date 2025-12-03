@@ -182,7 +182,7 @@ claude mcp add chirpy-studio \\
             <div className="bg-gradient-to-br from-orange-50 to-magenta-50 dark:from-orange-950/20 dark:to-magenta-950/20 rounded-2xl p-6 border border-orange-200 dark:border-orange-800">
               <h3 className="font-semibold text-[var(--foreground)] mb-2">🔑 API Key Required</h3>
               <p className="text-sm text-[var(--text-muted)]">
-                You'll need a Chirpy Studio API key to use these tools. <a href="https://studio.chirpy.studio/settings/api" className="underline" style={{ color: '#F97316' }}>Get your API key</a> from your dashboard.
+                You&apos;ll need a Chirpy Studio API key to use these tools. API access is currently in private beta—<Link href="/#signup" className="underline" style={{ color: '#F97316' }}>join the waitlist</Link> to get access.
               </p>
             </div>
           </div>
@@ -497,16 +497,16 @@ claude mcp add chirpy-studio \\
           <div className="bg-gradient-to-br from-[var(--card-bg)] to-[var(--background)] rounded-2xl p-8 border border-[var(--border)]">
             <h2 className="text-2xl font-bold mb-4 text-[var(--foreground)]">Ready to Build?</h2>
             <p className="text-[var(--text-muted)] mb-6 max-w-2xl mx-auto">
-              Get your API key and start creating AI-powered podcast applications today. Works with Claude Code, Claude Desktop, and custom integrations.
+              Join our private beta to start creating AI-powered podcast applications. Works with Claude Code, Claude Desktop, and custom integrations.
             </p>
             <div className="flex gap-4 justify-center">
-              <a
-                href="https://studio.chirpy.studio/settings/api"
+              <Link
+                href="/#signup"
                 className="inline-block px-8 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-shadow"
                 style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
               >
-                Get API Key
-              </a>
+                Join the Waitlist
+              </Link>
               <Link
                 href="/"
                 className="inline-block px-8 py-3 rounded-xl font-semibold border-2 hover:bg-[var(--card-bg)] transition-colors"
@@ -530,14 +530,9 @@ claude mcp add chirpy-studio \\
               <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
                 Home
               </Link>
-              <a
-                href="https://studio.chirpy.studio"
-                className="hover:text-[var(--foreground)] transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Dashboard
-              </a>
+              <Link href="/docs/studio" className="hover:text-[var(--foreground)] transition-colors">
+                Studio Docs
+              </Link>
               <a
                 href="https://modelcontextprotocol.io"
                 target="_blank"
