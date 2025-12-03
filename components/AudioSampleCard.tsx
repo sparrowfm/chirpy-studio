@@ -1,13 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-
 interface AudioSampleCardProps {
   genre: string;
   title: string;
   description: string;
   duration: string;
   waveformStyle: 'dramatic' | 'calm' | 'balanced';
+  onPlay?: () => void;
 }
 
 // Static waveform with different patterns based on style
@@ -65,14 +64,8 @@ export function AudioSampleCard({
   description,
   duration,
   waveformStyle,
+  onPlay,
 }: AudioSampleCardProps) {
-  const [showToast, setShowToast] = useState(false);
-
-  const handlePlayClick = () => {
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
-  };
-
   return (
     <div className="gradient-border p-6 relative group hover:scale-[1.02] transition-transform duration-300">
       {/* Genre Badge */}
@@ -90,7 +83,7 @@ export function AudioSampleCard({
       <div className="flex items-center gap-4 mt-4">
         {/* Play Button */}
         <button
-          onClick={handlePlayClick}
+          onClick={onPlay}
           className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#F97316]/20"
           style={{ background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)' }}
           aria-label={`Play ${title}`}
@@ -112,15 +105,6 @@ export function AudioSampleCard({
         {/* Duration */}
         <span className="text-[#A7B0C0] text-sm font-mono shrink-0">{duration}</span>
       </div>
-
-      {/* Toast Notification */}
-      {showToast && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-4 py-2 rounded-lg bg-[#10141D] border border-[#202635] shadow-lg animate-fade-in-up z-10">
-          <p className="text-sm text-white whitespace-nowrap">
-            Sample coming soon — <a href="#signup" className="text-[#F97316] hover:underline">join the waitlist!</a>
-          </p>
-        </div>
-      )}
     </div>
   );
 }

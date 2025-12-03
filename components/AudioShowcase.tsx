@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { AudioSampleCard } from './AudioSampleCard';
 
 const samples = [
@@ -27,8 +28,15 @@ const samples = [
 ];
 
 export function AudioShowcase() {
+  const [showToast, setShowToast] = useState(false);
+
+  const handlePlayClick = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 4000);
+  };
+
   return (
-    <section className="py-20 px-6">
+    <section className="py-20 px-6 relative">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -48,11 +56,27 @@ export function AudioShowcase() {
               className="animate-fade-in-up"
               style={{ animationDelay: `${(index + 1) * 100}ms` }}
             >
-              <AudioSampleCard {...sample} />
+              <AudioSampleCard {...sample} onPlay={handlePlayClick} />
             </div>
           ))}
         </div>
+
+        {/* Inspirational Prompt */}
+        <div className="text-center mt-12 animate-fade-in-up delay-300">
+          <p className="text-2xl md:text-3xl font-semibold">
+            What will <span className="gradient-text">you</span> create?
+          </p>
+        </div>
       </div>
+
+      {/* Shared Toast Notification */}
+      {showToast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl bg-[#10141D] border border-[#202635] shadow-2xl animate-fade-in-up z-50">
+          <p className="text-base text-white">
+            Samples coming soon — <a href="#signup" className="text-[#F97316] hover:underline font-medium">join the waitlist!</a>
+          </p>
+        </div>
+      )}
     </section>
   );
 }
