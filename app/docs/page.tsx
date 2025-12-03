@@ -37,21 +37,18 @@ export default function DocsIndexPage() {
         {/* Documentation Cards */}
         <div className="grid md:grid-cols-3 gap-6">
           {/* Studio Console */}
-          <div className="gradient-border p-6 relative overflow-hidden">
-            <div className="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-[#F97316]/20 text-[#F97316]">
-              Coming Soon
-            </div>
+          <Link href="/docs/studio" className="gradient-border p-6 relative overflow-hidden block hover:border-[#F97316] transition-colors group">
             <div className="text-3xl mb-4">🎛️</div>
-            <h2 className="text-xl font-semibold mb-2">
+            <h2 className="text-xl font-semibold mb-2 group-hover:text-[#F97316] transition-colors">
               Studio Console
             </h2>
             <p className="text-[#A7B0C0] text-sm mb-4">
-              The creative hub for audio storytelling. Manage projects, review outputs, and fine-tune your productions.
+              The creative hub for audio storytelling. Create podcasts with AI-powered scripting, voice generation, and audio production.
             </p>
-            <div className="flex items-center gap-2 text-sm text-[#A7B0C0]">
-              <span>Documentation coming soon</span>
+            <div className="flex items-center gap-2 text-sm text-[#F97316]">
+              <span>View documentation →</span>
             </div>
-          </div>
+          </Link>
 
           {/* REST API */}
           <div className="gradient-border p-6 relative overflow-hidden">
