@@ -35,10 +35,26 @@
 ├── app/
 │   ├── page.tsx                    # Homepage
 │   ├── docs/
-│   │   └── mcp/
-│   │       └── page.tsx            # MCP documentation (developer-focused)
+│   │   ├── mcp/
+│   │   │   └── page.tsx            # MCP documentation (developer-focused)
+│   │   └── studio/                 # Studio Console user guides
+│   │       ├── page.tsx            # Studio docs index
+│   │       ├── getting-started/
+│   │       ├── creating-series/
+│   │       ├── creating-episodes/
+│   │       ├── voices/
+│   │       ├── audio-production/
+│   │       ├── publishing/
+│   │       └── troubleshooting/
 │   ├── layout.tsx                  # Root layout
 │   └── globals.css                 # Global styles + Tailwind imports
+├── components/
+│   ├── AudioShowcase.tsx           # Audio samples section (3 genre cards)
+│   ├── AudioSampleCard.tsx         # Sample card with waveform + play button
+│   ├── WaveformAnimation.tsx       # Animated waveform for hero
+│   ├── EmailSignupForm.tsx         # Waitlist signup form
+│   ├── ContactForm.tsx             # Contact form
+│   └── Wordmark.tsx                # Brand wordmark component
 ├── public/
 │   ├── robots.txt                  # SEO configuration
 │   ├── tweety-bird.png             # Brand mascot
@@ -242,6 +258,35 @@ Before deploying major changes:
 - [ ] Console has no errors
 - [ ] Tweety bird loads
 - [ ] Brand colors correct
+
+## Investor Deck & Messaging
+
+### Deck Location
+Investor teaser deck is maintained separately (not in this repo). Key messaging decisions are documented here for consistency.
+
+### Core Positioning
+- **Tagline**: "Agentic AI for premium, personalizable narrative audio"
+- **Category**: Hyper-Personalized Narrative Audio
+- **Key differentiator**: "Others built the instruments. We conduct the orchestra."
+
+### Messaging Principles
+1. **End-to-end is the lead story** - Chirpy is a full production studio, not a tool
+2. **Modularity is secondary** - Buyers can use individual agents via API, but don't lead with this
+3. **Inspirational over prescriptive** - Use questions ("What becomes possible?") rather than exhaustive use case lists
+4. **Storytelling emphasis** - Competitors focus on tooling; Chirpy focuses on the storyteller
+
+### "Why Now" Framing
+Three technology shifts + one market gap:
+1. TTS crossed the uncanny valley (2023-24)
+2. LLM costs collapsed (10-100x cheaper)
+3. Agentic infrastructure matured (MCP, function calling)
+4. Gap: Current players build tools, not stories
+
+### Avoid in External Messaging
+- Internal service names (Skylark, Condor, Magpie, Nightingale)
+- Specific metrics without sources (e.g., "100M+ listeners" needs citation)
+- "~$0 marginal cost" without context (clarify: per episode after setup)
+- Prescriptive use case lists that limit imagination
 
 ## Future Enhancements
 
