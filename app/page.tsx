@@ -2,6 +2,7 @@ import { Wordmark } from '@/components/Wordmark';
 import { EmailSignupForm } from '@/components/EmailSignupForm';
 import { ContactForm } from '@/components/ContactForm';
 import { WaveformAnimationCSS } from '@/components/WaveformAnimation';
+import { AudioShowcase } from '@/components/AudioShowcase';
 
 export default function HomePage() {
   return (
@@ -58,6 +59,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Audio Samples Showcase */}
+      <AudioShowcase />
 
       {/* How It Works */}
       <section className="py-24 px-6 bg-[#10141D]/50">
