@@ -67,7 +67,7 @@ export default function GettingStartedPage() {
           </div>
           <div className="ml-16 space-y-4">
             <p className="text-[var(--text-muted)]">
-              Go to <a href="https://studio.chirpy.studio" className="text-[#F97316] hover:underline" target="_blank" rel="noopener noreferrer">studio.chirpy.studio</a> and sign in with your account.
+              Open the Studio and sign in with your account. The Studio is currently in private beta—<Link href="/#signup" className="text-[#F97316] hover:underline">join the waitlist</Link> to get access.
             </p>
             <p className="text-[var(--text-muted)]">
               You&apos;ll see three panels:

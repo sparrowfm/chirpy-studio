@@ -105,22 +105,73 @@ export default function StudioDocsPage() {
               </div>
             </Link>
 
-            <div className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] opacity-60">
+            <Link
+              href="/docs/studio/voices"
+              className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] hover:border-[#F97316] transition-colors group"
+            >
               <div className="flex items-start gap-4">
-                <div className="text-3xl">🎨</div>
+                <div className="text-3xl">🎤</div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] mb-2">
-                    Voices & Audio
+                  <h3 className="font-semibold text-[var(--foreground)] mb-2 group-hover:text-[#F97316] transition-colors">
+                    Voices
                   </h3>
                   <p className="text-sm text-[var(--text-muted)]">
-                    Choose voices, add music and sound effects, and fine-tune your audio production.
+                    Choose and customize AI voices for your podcast narration.
                   </p>
-                  <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-[#F97316]/20 text-[#F97316]">
-                    Coming Soon
-                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
+
+            <Link
+              href="/docs/studio/audio-production"
+              className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] hover:border-[#F97316] transition-colors group"
+            >
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">🎵</div>
+                <div>
+                  <h3 className="font-semibold text-[var(--foreground)] mb-2 group-hover:text-[#F97316] transition-colors">
+                    Audio Production
+                  </h3>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Add music, sound effects, and professional mixing to your episodes.
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href="/docs/studio/publishing"
+              className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] hover:border-[#F97316] transition-colors group"
+            >
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">📡</div>
+                <div>
+                  <h3 className="font-semibold text-[var(--foreground)] mb-2 group-hover:text-[#F97316] transition-colors">
+                    Publishing
+                  </h3>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Download, share, and distribute your episodes to podcast platforms.
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href="/docs/studio/troubleshooting"
+              className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--border)] hover:border-[#F97316] transition-colors group"
+            >
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">🔧</div>
+                <div>
+                  <h3 className="font-semibold text-[var(--foreground)] mb-2 group-hover:text-[#F97316] transition-colors">
+                    Troubleshooting
+                  </h3>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Solve common issues and get help when you&apos;re stuck.
+                  </p>
+                </div>
+              </div>
+            </Link>
           </div>
         </section>
 
