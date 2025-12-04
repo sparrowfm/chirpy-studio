@@ -67,8 +67,12 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
               <span className="font-mono">#{episodeNumber}</span>
             )}
             <span>{formatDate(episode.publishedAt)}</span>
-            <span className="text-[#202635]">|</span>
-            <span className="font-mono">{episode.formattedDuration}</span>
+            {episode.durationSeconds > 0 && (
+              <>
+                <span className="text-[#202635]">|</span>
+                <span className="font-mono">{episode.formattedDuration}</span>
+              </>
+            )}
           </div>
 
           {/* Title */}

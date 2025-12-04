@@ -159,12 +159,20 @@ export async function getEpisodesFromRss(feedUrl: string): Promise<DisplayEpisod
       const description = extractTag(itemXml, 'description') || extractTag(itemXml, 'itunes:summary');
       const guid = extractTag(itemXml, 'guid');
       const pubDate = extractTag(itemXml, 'pubDate');
-      const enclosureMatch = itemXml.match(/<enclosure[^>]*url="([^"]+)"/);
-      const audioUrl = enclosureMatch?.[1] || '';
+      // Parse enclosure for URL and file size
+      const enclosureUrlMatch = itemXml.match(/<enclosure[^>]*url="([^"]+)"/);
+      const enclosureLengthMatch = itemXml.match(/<enclosure[^>]*length="(\d+)"/);
+      const audioUrl = enclosureUrlMatch?.[1] || '';
+      const fileSizeBytes = enclosureLengthMatch?.[1] ? parseInt(enclosureLengthMatch[1], 10) : 0;
       const durationStr = extractTag(itemXml, 'itunes:duration');
 
       if (title && audioUrl) {
-        const durationSeconds = parseDuration(durationStr || '');
+        // Use itunes:duration if available, otherwise estimate from file size
+        // Assuming 128kbps MP3: 128000 bits/sec = 16000 bytes/sec
+        let durationSeconds = parseDuration(durationStr || '');
+        if (durationSeconds === 0 && fileSizeBytes > 0) {
+          durationSeconds = Math.round(fileSizeBytes / 16000);
+        }
         episodes.push({
           id: guid || title,
           title: cleanHtml(title),
