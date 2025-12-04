@@ -167,7 +167,7 @@ export default async function PodcastSeriesPage({ params }: PageProps) {
         <h2 className="text-2xl font-bold mb-6 text-white">
           {episodes.length} {episodes.length === 1 ? 'Episode' : 'Episodes'}
         </h2>
-        <EpisodeList episodes={episodes} />
+        <EpisodeList episodes={episodes} seriesSlug={slug} />
       </section>
 
       {/* More from Chirpy Studio */}

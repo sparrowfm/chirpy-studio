@@ -100,3 +100,12 @@ export type PlayerAction =
   | { type: 'SET_DURATION'; duration: number }
   | { type: 'SET_PLAYBACK_RATE'; rate: number }
   | { type: 'CLOSE' };
+
+// Series with preview info for discovery page
+// Extends SeriesWithSlug from aviary-api.ts (which extends Series)
+export interface SeriesWithPreview extends Series {
+  slug: string;
+  rss_feed_url: string;
+  latestEpisode: DisplayEpisode | null;
+  episodeCount: number;
+}

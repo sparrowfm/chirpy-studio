@@ -3,9 +3,10 @@ import { EpisodeCard } from './EpisodeCard';
 
 interface EpisodeListProps {
   episodes: DisplayEpisode[];
+  seriesSlug?: string;
 }
 
-export function EpisodeList({ episodes }: EpisodeListProps) {
+export function EpisodeList({ episodes, seriesSlug }: EpisodeListProps) {
   if (episodes.length === 0) {
     return (
       <div className="text-center py-12">
@@ -21,6 +22,7 @@ export function EpisodeList({ episodes }: EpisodeListProps) {
           key={episode.id}
           episode={episode}
           episodeNumber={episodes.length - index}
+          seriesSlug={seriesSlug}
         />
       ))}
     </div>

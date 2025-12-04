@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import type { DisplayEpisode } from '@/types/podcast';
 import { useAudioPlayer } from '@/lib/audio-player-context';
 import { ShareButton } from './ShareButton';
@@ -8,6 +9,7 @@ import { ShareButton } from './ShareButton';
 interface EpisodeCardProps {
   episode: DisplayEpisode;
   episodeNumber?: number;
+  seriesSlug?: string;
 }
 
 function formatDate(date: Date): string {
@@ -18,7 +20,7 @@ function formatDate(date: Date): string {
   });
 }
 
-export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
+export function EpisodeCard({ episode, episodeNumber, seriesSlug }: EpisodeCardProps) {
   const { state, play, pause, resume } = useAudioPlayer();
   const [isExpanded, setIsExpanded] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
@@ -117,9 +119,20 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-lg font-semibold text-white mb-2 truncate group-hover:text-[#F97316] transition-colors">
-            {episode.title}
-          </h3>
+          {seriesSlug ? (
+            <Link
+              href={`/podcasts/${seriesSlug}/episodes/${episode.id}`}
+              className="block"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 truncate group-hover:text-[#F97316] transition-colors hover:text-[#F97316]">
+                {episode.title}
+              </h3>
+            </Link>
+          ) : (
+            <h3 className="text-lg font-semibold text-white mb-2 truncate group-hover:text-[#F97316] transition-colors">
+              {episode.title}
+            </h3>
+          )}
 
           {/* Description */}
           {episode.description && (
@@ -167,6 +180,7 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
                 <ShareButton
                   title={episode.title}
                   description={episode.description.slice(0, 100)}
+                  url={seriesSlug ? `https://chirpy.studio/podcasts/${seriesSlug}/episodes/${episode.id}` : undefined}
                 />
               </div>
             </div>
