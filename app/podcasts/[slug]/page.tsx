@@ -133,7 +133,8 @@ export default async function PodcastSeriesPage({ params }: PageProps) {
   }
 
   // Fetch episodes from RSS feed (public, contains published episodes only)
-  const episodes = await getEpisodesFromRss(series.rss_feed_url);
+  // Pass series key art as fallback for episode images
+  const episodes = await getEpisodesFromRss(series.rss_feed_url, series.key_art_url);
 
   return (
     <div className="min-h-screen bg-[#0B0E14]">

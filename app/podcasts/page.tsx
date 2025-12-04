@@ -70,7 +70,7 @@ async function getSeriesWithPreviews(): Promise<SeriesWithPreview[]> {
   // Fetch latest episode and count for each series in parallel
   const seriesWithPreviews = await Promise.all(
     allSeries.map(async (series) => {
-      const episodes = await getEpisodesFromRss(series.rss_feed_url);
+      const episodes = await getEpisodesFromRss(series.rss_feed_url, series.key_art_url);
       return {
         ...series,
         latestEpisode: episodes[0] || null,

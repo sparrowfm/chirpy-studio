@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useAudioPlayer } from '@/lib/audio-player-context';
 import { formatDuration } from '@/lib/aviary-api';
 
@@ -112,15 +113,28 @@ export function AudioPlayer() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-8 pb-8">
-        {/* Album Art Placeholder */}
+        {/* Album Art */}
         <div
-          className={`w-64 h-64 sm:w-72 sm:h-72 rounded-2xl bg-gradient-to-br from-[#F97316] to-[#D946EF] flex items-center justify-center shadow-2xl shadow-[#F97316]/20 mb-8 transition-all duration-500 delay-100 ${
+          className={`w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-2xl shadow-[#F97316]/20 mb-8 transition-all duration-500 delay-100 ${
             isAnimating ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
           }`}
         >
-          <svg className="w-24 h-24 text-white/30" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-          </svg>
+          {(state.currentEpisode.imageUrl || state.currentEpisode.seriesImageUrl) ? (
+            <Image
+              src={state.currentEpisode.imageUrl || state.currentEpisode.seriesImageUrl || ''}
+              alt={state.currentEpisode.title}
+              width={288}
+              height={288}
+              className="w-full h-full object-cover"
+              priority
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#F97316] to-[#D946EF] flex items-center justify-center">
+              <svg className="w-24 h-24 text-white/30" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+          )}
         </div>
 
         {/* Episode Title (full, no truncation) */}

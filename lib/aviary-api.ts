@@ -165,13 +165,16 @@ interface RssEpisode {
   audioUrl: string;
   pubDate: string;
   duration?: string;
+  imageUrl?: string;
 }
 
 /**
  * Parse RSS feed to get episodes directly
  * This is a fallback/alternative to the Wren API
+ * @param feedUrl - RSS feed URL
+ * @param seriesImageUrl - Fallback image from series key_art_url
  */
-export async function getEpisodesFromRss(feedUrl: string): Promise<DisplayEpisode[]> {
+export async function getEpisodesFromRss(feedUrl: string, seriesImageUrl?: string): Promise<DisplayEpisode[]> {
   try {
     const response = await fetch(feedUrl, {
       next: { revalidate: 300 },
@@ -198,6 +201,9 @@ export async function getEpisodesFromRss(feedUrl: string): Promise<DisplayEpisod
       const enclosureMatch = itemXml.match(/<enclosure[^>]*url="([^"]+)"/);
       const audioUrl = enclosureMatch?.[1] || '';
       const durationStr = extractTag(itemXml, 'itunes:duration');
+      // Extract episode-specific image from itunes:image href attribute
+      const imageMatch = itemXml.match(/<itunes:image[^>]*href="([^"]+)"/i);
+      const episodeImageUrl = imageMatch?.[1];
 
       if (title && audioUrl) {
         // Only use itunes:duration if available - don't estimate from file size
@@ -217,6 +223,8 @@ export async function getEpisodesFromRss(feedUrl: string): Promise<DisplayEpisod
           durationSeconds,
           formattedDuration: formatDuration(durationSeconds),
           wrenEpisodeId,
+          imageUrl: episodeImageUrl,
+          seriesImageUrl,
         });
       }
     }

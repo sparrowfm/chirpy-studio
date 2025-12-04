@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const episodes = await getEpisodesFromRss(series.rss_feed_url);
+  const episodes = await getEpisodesFromRss(series.rss_feed_url, series.key_art_url);
   const episode = episodes.find((ep) => ep.id === episodeId);
 
   if (!episode) {
@@ -135,7 +135,7 @@ export default async function EpisodePage({ params }: PageProps) {
     notFound();
   }
 
-  const episodes = await getEpisodesFromRss(series.rss_feed_url);
+  const episodes = await getEpisodesFromRss(series.rss_feed_url, series.key_art_url);
   const episode = episodes.find((ep) => ep.id === episodeId);
 
   if (!episode) {

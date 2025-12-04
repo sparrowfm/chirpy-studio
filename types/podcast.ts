@@ -80,6 +80,10 @@ export interface DisplayEpisode {
   formattedDuration: string;
   /** Wren episode ID for fetching transcript (extracted from RSS GUID) */
   wrenEpisodeId?: string;
+  /** Episode-specific artwork from RSS (itunes:image) */
+  imageUrl?: string;
+  /** Fallback artwork from series (key_art_url) */
+  seriesImageUrl?: string;
 }
 
 // Audio player state
