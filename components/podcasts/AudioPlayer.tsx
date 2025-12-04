@@ -112,7 +112,7 @@ export function AudioPlayer() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 pb-8">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 pb-8 pb-[max(2rem,env(safe-area-inset-bottom))]">
         {/* Album Art */}
         <div
           className={`w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-2xl shadow-[#F97316]/20 mb-8 transition-all duration-500 delay-100 ${
@@ -262,10 +262,10 @@ export function AudioPlayer() {
     <>
       {expandedPlayer}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 bg-[#10141D]/95 backdrop-blur-lg border-t border-[#202635] shadow-2xl shadow-black/50 cursor-pointer sm:cursor-default"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-[#10141D]/95 backdrop-blur-lg border-t border-[#202635] shadow-2xl shadow-black/50 cursor-pointer sm:cursor-default pb-[env(safe-area-inset-bottom)]"
         onClick={handleMiniplayerClick}
       >
-      <div className="max-w-4xl mx-auto px-4 py-3">
+      <div className="max-w-4xl mx-auto px-4 py-2.5">
         {/* Progress Bar */}
         <div
           className="h-1 bg-[#202635] rounded-full cursor-pointer mb-3 group"
@@ -282,63 +282,85 @@ export function AudioPlayer() {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          {/* Skip Backward 15s */}
-          <button
-            onClick={skipBackward}
-            className="hidden sm:flex shrink-0 p-2 text-[#A7B0C0] hover:text-white transition-colors relative"
-            aria-label="Skip back 15 seconds"
+        <div className="flex items-center gap-3">
+          {/* Artwork Thumbnail */}
+          <div
+            className="shrink-0 w-12 h-12 rounded-lg overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
           >
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M1 4v6h6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="absolute inset-0 flex items-center justify-center text-[8px] font-bold mt-0.5">15</span>
-          </button>
+            {(state.currentEpisode.imageUrl || state.currentEpisode.seriesImageUrl) ? (
+              <Image
+                src={state.currentEpisode.imageUrl || state.currentEpisode.seriesImageUrl || ''}
+                alt=""
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-[#F97316] to-[#D946EF] flex items-center justify-center">
+                <svg className="w-5 h-5 text-white/50" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                </svg>
+              </div>
+            )}
+          </div>
 
           {/* Play/Pause Button */}
           <button
             onClick={handlePlayPause}
-            className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+            className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
             }}
             aria-label={state.isPlaying ? 'Pause' : 'Play'}
           >
             {state.isPlaying ? (
-              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
               </svg>
             ) : (
-              <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             )}
           </button>
 
-          {/* Skip Forward 15s */}
+          {/* Skip Backward 15s - desktop only */}
+          <button
+            onClick={skipBackward}
+            className="hidden sm:flex shrink-0 p-2 text-[#A7B0C0] hover:text-white transition-colors relative"
+            aria-label="Skip back 15 seconds"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M1 4v6h6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="absolute inset-0 flex items-center justify-center text-[7px] font-bold mt-0.5">15</span>
+          </button>
+
+          {/* Skip Forward 15s - desktop only */}
           <button
             onClick={skipForward}
             className="hidden sm:flex shrink-0 p-2 text-[#A7B0C0] hover:text-white transition-colors relative"
             aria-label="Skip forward 15 seconds"
           >
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M23 4v6h-6" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="absolute inset-0 flex items-center justify-center text-[8px] font-bold mt-0.5">15</span>
+            <span className="absolute inset-0 flex items-center justify-center text-[7px] font-bold mt-0.5">15</span>
           </button>
 
           {/* Episode Info - Tappable area with expand hint on mobile */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-white line-clamp-2 sm:truncate">
+            <p className="text-sm font-semibold text-white truncate">
               {state.currentEpisode.title}
             </p>
             <div className="flex items-center gap-2 text-xs text-[#A7B0C0]">
               <span className="font-mono">{formatDuration(state.currentTime)}</span>
               <span>/</span>
               <span className="font-mono">{formatDuration(state.duration)}</span>
-              <span className="sm:hidden text-[#F97316]">· Tap to expand</span>
+              <span className="sm:hidden text-[#F97316]/80 ml-1">· Tap for more</span>
             </div>
           </div>
 

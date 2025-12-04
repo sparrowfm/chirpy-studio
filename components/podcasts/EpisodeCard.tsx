@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { DisplayEpisode } from '@/types/podcast';
 import { useAudioPlayer } from '@/lib/audio-player-context';
 import { ShareButton } from './ShareButton';
@@ -77,29 +78,57 @@ export function EpisodeCard({ episode, episodeNumber, seriesSlug }: EpisodeCardP
     }
   };
 
+  const artworkUrl = episode.imageUrl || episode.seriesImageUrl;
+
   return (
-    <div className="group relative p-6 rounded-2xl bg-[#10141D] border border-[#202635] hover:border-[#F97316]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#F97316]/5">
-      <div className="flex gap-4">
-        {/* Play Button */}
+    <div className="group relative p-4 sm:p-6 rounded-2xl bg-[#10141D] border border-[#202635] hover:border-[#F97316]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#F97316]/5">
+      <div className="flex gap-3 sm:gap-4">
+        {/* Artwork with Play Overlay */}
         <button
           onClick={handlePlayClick}
-          className="shrink-0 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#F97316]/20"
-          style={{
-            background: isPlaying
-              ? 'linear-gradient(135deg, #D946EF 0%, #F97316 100%)'
-              : 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
-          }}
+          className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden relative group/play"
           aria-label={isPlaying ? `Pause ${episode.title}` : `Play ${episode.title}`}
         >
-          {isPlaying ? (
-            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-            </svg>
+          {artworkUrl ? (
+            <Image
+              src={artworkUrl}
+              alt=""
+              width={80}
+              height={80}
+              className="w-full h-full object-cover"
+            />
           ) : (
-            <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+            <div className="w-full h-full bg-gradient-to-br from-[#F97316] to-[#D946EF]" />
           )}
+          {/* Play/Pause Overlay */}
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ${
+              isPlaying
+                ? 'bg-black/40'
+                : 'bg-black/0 group-hover/play:bg-black/40'
+            }`}
+          >
+            <div
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
+                isPlaying
+                  ? 'scale-100 opacity-100'
+                  : 'scale-75 opacity-0 group-hover/play:scale-100 group-hover/play:opacity-100'
+              }`}
+              style={{
+                background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
+              }}
+            >
+              {isPlaying ? (
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              )}
+            </div>
+          </div>
         </button>
 
         {/* Episode Info */}
