@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import type { DisplayEpisode } from '@/types/podcast';
 import { useAudioPlayer } from '@/lib/audio-player-context';
 
@@ -18,9 +19,13 @@ function formatDate(date: Date): string {
 
 export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
   const { state, play, pause, resume } = useAudioPlayer();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const isCurrentEpisode = state.currentEpisode?.id === episode.id;
   const isPlaying = isCurrentEpisode && state.isPlaying;
+
+  // Check if description is long enough to need expansion
+  const descriptionNeedsExpansion = episode.description.length > 150;
 
   const handlePlayClick = () => {
     if (isCurrentEpisode) {
@@ -82,9 +87,23 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
 
           {/* Description */}
           {episode.description && (
-            <p className="text-sm text-[#A7B0C0] line-clamp-2 leading-relaxed">
-              {episode.description}
-            </p>
+            <div>
+              <p
+                className={`text-sm text-[#A7B0C0] leading-relaxed ${
+                  isExpanded ? '' : 'line-clamp-2'
+                }`}
+              >
+                {episode.description}
+              </p>
+              {descriptionNeedsExpansion && (
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="text-sm text-[#F97316] hover:text-[#D946EF] transition-colors mt-1 font-medium"
+                >
+                  {isExpanded ? 'Show less' : 'Show more'}
+                </button>
+              )}
+            </div>
           )}
         </div>
       </div>
