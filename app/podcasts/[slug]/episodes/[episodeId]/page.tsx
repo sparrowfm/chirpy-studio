@@ -7,6 +7,7 @@ import { EpisodePlayer } from '@/components/podcasts/EpisodePlayer';
 import { SubscribeButtons } from '@/components/podcasts/SubscribeButtons';
 import { ShareButton } from '@/components/podcasts/ShareButton';
 import { MorePodcasts } from '@/components/podcasts/MorePodcasts';
+import { NetworkCTA } from '@/components/podcasts/NetworkCTA';
 import {
   getSeriesBySlug,
   getEpisodesFromRss,
@@ -334,6 +335,9 @@ export default async function EpisodePage({ params }: PageProps) {
           )}
         </div>
       </main>
+
+      {/* CTA Banner */}
+      <NetworkCTA variant="compact" />
 
       {/* More from Chirpy Studio */}
       <MorePodcasts currentSlug={slug} allSeries={allSeries} />

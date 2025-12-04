@@ -6,6 +6,7 @@ import { SeriesHero } from '@/components/podcasts/SeriesHero';
 import { SubscribeButtons } from '@/components/podcasts/SubscribeButtons';
 import { EpisodeList } from '@/components/podcasts/EpisodeList';
 import { MorePodcasts } from '@/components/podcasts/MorePodcasts';
+import { NetworkCTA } from '@/components/podcasts/NetworkCTA';
 import {
   getSeriesBySlug,
   getEpisodesFromRss,
@@ -169,6 +170,9 @@ export default async function PodcastSeriesPage({ params }: PageProps) {
         </h2>
         <EpisodeList episodes={episodes} seriesSlug={slug} />
       </section>
+
+      {/* CTA Banner */}
+      <NetworkCTA variant="compact" />
 
       {/* More from Chirpy Studio */}
       <MorePodcasts currentSlug={slug} allSeries={allSeries} />
