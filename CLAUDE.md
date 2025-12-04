@@ -48,13 +48,31 @@
 │   │       └── troubleshooting/
 │   ├── layout.tsx                  # Root layout
 │   └── globals.css                 # Global styles + Tailwind imports
+│   ├── podcasts/
+│   │   └── [slug]/
+│   │       ├── page.tsx            # Podcast series page (data from Aviary API + RSS)
+│   │       ├── loading.tsx         # Skeleton loading state
+│   │       ├── error.tsx           # Error boundary with retry
+│   │       └── not-found.tsx       # 404 for unknown slugs
 ├── components/
+│   ├── podcasts/                   # Podcast-specific components
+│   │   ├── SeriesHero.tsx          # Key art, title, tagline, genres
+│   │   ├── GenreBadge.tsx          # iTunes category pills
+│   │   ├── SubscribeButtons.tsx    # App deep links (Apple, Overcast, Pocket Casts, Castro)
+│   │   ├── EpisodeCard.tsx         # Episode with play button
+│   │   ├── EpisodeList.tsx         # Episode container
+│   │   └── AudioPlayer.tsx         # Sticky bottom player
 │   ├── AudioShowcase.tsx           # Audio samples section (3 genre cards)
 │   ├── AudioSampleCard.tsx         # Sample card with waveform + play button
 │   ├── WaveformAnimation.tsx       # Animated waveform for hero
 │   ├── EmailSignupForm.tsx         # Waitlist signup form
 │   ├── ContactForm.tsx             # Contact form
 │   └── Wordmark.tsx                # Brand wordmark component
+├── lib/
+│   ├── aviary-api.ts               # API client for Wren + RSS feed parsing
+│   └── audio-player-context.tsx    # React Context for audio player state
+├── types/
+│   └── podcast.ts                  # TypeScript interfaces for podcast data
 ├── public/
 │   ├── robots.txt                  # SEO configuration
 │   ├── tweety-bird.png             # Brand mascot
@@ -125,6 +143,37 @@ git push
 - How to get started quickly
 - Real-world use cases
 - Clear API documentation
+
+### Podcast Series Pages (`/podcasts/[slug]`)
+
+Public-facing podcast landing pages for series with published RSS feeds.
+
+**Example URL**: https://chirpy.studio/podcasts/fact-frenzy
+
+**Data Sources**:
+- **Series metadata**: Wren API at `https://studio.chirpy.studio/api/series`
+- **Episodes**: RSS feed at `https://rss.chirpy.studio/feeds/{slug}`
+- **Auth**: `X-API-Key` header with `AVIARY_API_KEY` env var
+
+**Slug Matching** (in order of priority):
+1. RSS feed URL contains `/feeds/{slug}`
+2. `starling_feed_id` matches slug
+3. Series ID matches slug
+4. Slugified series name matches slug
+
+**Features**:
+- Hero with key art, title, tagline, genre badges
+- Subscribe buttons with deep links (Apple Podcasts, Overcast, Pocket Casts, Castro)
+- Episode list with descriptions and publish dates
+- Sticky audio player with seek bar
+- SEO metadata and Open Graph images
+
+**Known Issue / Pending Requirement**:
+> **TODO for Wren**: Store `rss_feed_url` in `series.config.rss_feed_url`
+>
+> Currently, chirpy-studio constructs the RSS URL from the slug pattern `https://rss.chirpy.studio/feeds/{slug}`.
+> This is fragile - Wren should store the canonical RSS feed URL so chirpy-studio can read it directly.
+> See: `lib/aviary-api.ts:54` for the TODO comment.
 
 ## Common Issues and Fixes
 
