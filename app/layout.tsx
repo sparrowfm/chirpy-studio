@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { AudioPlayerProvider } from "@/lib/audio-player-context";
+import { AudioPlayer } from "@/components/podcasts/AudioPlayer";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -116,7 +118,10 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-[#0B0E14] text-white min-h-screen">
-        {children}
+        <AudioPlayerProvider>
+          {children}
+          <AudioPlayer />
+        </AudioPlayerProvider>
       </body>
     </html>
   );
