@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { DisplayEpisode } from '@/types/podcast';
 import { useAudioPlayer } from '@/lib/audio-player-context';
+import { ShareButton } from './ShareButton';
 
 interface EpisodeCardProps {
   episode: DisplayEpisode;
@@ -163,6 +164,10 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
                     )}
                   </button>
                 )}
+                <ShareButton
+                  title={episode.title}
+                  description={episode.description.slice(0, 100)}
+                />
               </div>
             </div>
           )}

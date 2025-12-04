@@ -88,6 +88,7 @@ export interface PlayerState {
   isPlaying: boolean;
   currentTime: number;
   duration: number;
+  playbackRate: number;
 }
 
 export type PlayerAction =
@@ -97,4 +98,5 @@ export type PlayerAction =
   | { type: 'SEEK'; time: number }
   | { type: 'UPDATE_TIME'; time: number }
   | { type: 'SET_DURATION'; duration: number }
+  | { type: 'SET_PLAYBACK_RATE'; rate: number }
   | { type: 'CLOSE' };

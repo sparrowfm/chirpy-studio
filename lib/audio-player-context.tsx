@@ -16,6 +16,7 @@ const initialState: PlayerState = {
   isPlaying: false,
   currentTime: 0,
   duration: 0,
+  playbackRate: 1,
 };
 
 function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
@@ -38,6 +39,8 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
       return { ...state, currentTime: action.time };
     case 'SET_DURATION':
       return { ...state, duration: action.duration };
+    case 'SET_PLAYBACK_RATE':
+      return { ...state, playbackRate: action.rate };
     case 'CLOSE':
       return initialState;
     default:
@@ -51,6 +54,7 @@ interface PlayerContextValue {
   pause: () => void;
   resume: () => void;
   seek: (time: number) => void;
+  setPlaybackRate: (rate: number) => void;
   close: () => void;
 }
 
@@ -135,6 +139,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SEEK', time });
   }, []);
 
+  const setPlaybackRate = useCallback((rate: number) => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = rate;
+    }
+    dispatch({ type: 'SET_PLAYBACK_RATE', rate });
+  }, []);
+
   const close = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -144,7 +155,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <PlayerContext.Provider value={{ state, play, pause, resume, seek, close }}>
+    <PlayerContext.Provider value={{ state, play, pause, resume, seek, setPlaybackRate, close }}>
       {children}
     </PlayerContext.Provider>
   );
