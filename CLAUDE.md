@@ -61,7 +61,15 @@
 │   │   ├── SubscribeButtons.tsx    # App deep links (Apple, Overcast, Pocket Casts, Castro)
 │   │   ├── EpisodeCard.tsx         # Episode with play button
 │   │   ├── EpisodeList.tsx         # Episode container
-│   │   └── AudioPlayer.tsx         # Sticky bottom player
+│   │   ├── EpisodePlayer.tsx       # Large play button for episode detail pages
+│   │   ├── AudioPlayer.tsx         # Sticky bottom player with expandable full-screen
+│   │   ├── NetworkCTA.tsx          # Marketing CTA ("What will you create?")
+│   │   ├── FeaturedPodcast.tsx     # Featured show on discovery page
+│   │   ├── PodcastDiscoveryCard.tsx # Card with play preview
+│   │   ├── PodcastGrid.tsx         # Responsive grid layout
+│   │   ├── PodcastsHero.tsx        # Discovery page hero
+│   │   ├── MorePodcasts.tsx        # "More from Chirpy Studio" section
+│   │   └── ShareButton.tsx         # Share episode via native share API
 │   ├── AudioShowcase.tsx           # Audio samples section (3 genre cards)
 │   ├── AudioSampleCard.tsx         # Sample card with waveform + play button
 │   ├── WaveformAnimation.tsx       # Animated waveform for hero
@@ -144,11 +152,17 @@ git push
 - Real-world use cases
 - Clear API documentation
 
-### Podcast Series Pages (`/podcasts/[slug]`)
+### Podcast Discovery & Pages
 
-Public-facing podcast landing pages for series with published RSS feeds.
+**Routes**:
+- `/podcasts` - Discovery landing page with featured show and grid
+- `/podcasts/[slug]` - Series page with episode list
+- `/podcasts/[slug]/episodes/[episodeId]` - Episode detail page with unique OG tags
 
-**Example URL**: https://chirpy.studio/podcasts/fact-frenzy
+**Example URLs**:
+- https://chirpy.studio/podcasts
+- https://chirpy.studio/podcasts/fact-frenzy
+- https://chirpy.studio/podcasts/fact-frenzy/episodes/abc123
 
 **Data Sources**:
 - **Series metadata**: Wren API at `https://studio.chirpy.studio/api/series`
@@ -165,8 +179,35 @@ Public-facing podcast landing pages for series with published RSS feeds.
 - Hero with key art, title, tagline, genre badges
 - Subscribe buttons with deep links (Apple Podcasts, Overcast, Pocket Casts, Castro)
 - Episode list with descriptions and publish dates
-- Sticky audio player with seek bar
-- SEO metadata and Open Graph images
+- Sticky audio player with seek bar (expandable to full-screen on mobile)
+- SEO metadata and Open Graph images per episode
+- Marketing CTAs linking to waitlist
+
+**Audio Player UX Patterns**:
+- Miniplayer is sticky at bottom, tappable to expand on mobile
+- Expanded player: full-screen slide-up with staggered content animations
+- Title truncation: `line-clamp-2 sm:line-clamp-1` (2 lines mobile, 1 desktop)
+- Mobile hint: "Tap to expand" shown only on small screens (`sm:hidden`)
+
+**Animation Pattern for Slide-Up Modals**:
+```tsx
+// Two-phase animation: mount first, then animate
+const [isExpanded, setIsExpanded] = useState(false);
+const [isAnimating, setIsAnimating] = useState(false);
+const [showExpanded, setShowExpanded] = useState(false);
+
+useEffect(() => {
+  if (isExpanded) {
+    setShowExpanded(true);
+    requestAnimationFrame(() => setIsAnimating(true));
+  } else if (showExpanded) {
+    setIsAnimating(false);
+    setTimeout(() => setShowExpanded(false), 300); // match CSS duration
+  }
+}, [isExpanded, showExpanded]);
+
+// CSS: translate-y-full → translate-y-0 with transition-all duration-300
+```
 
 **Known Issue / Pending Requirement**:
 > **TODO for Wren**: Store `rss_feed_url` in `series.config.rss_feed_url`
