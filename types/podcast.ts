@@ -78,6 +78,8 @@ export interface DisplayEpisode {
   publishedAt: Date;
   durationSeconds: number;
   formattedDuration: string;
+  /** Wren episode ID for fetching transcript (extracted from RSS GUID) */
+  wrenEpisodeId?: string;
 }
 
 // Audio player state

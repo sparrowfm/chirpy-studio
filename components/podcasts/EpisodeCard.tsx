@@ -20,6 +20,9 @@ function formatDate(date: Date): string {
 export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
   const { state, play, pause, resume } = useAudioPlayer();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showTranscript, setShowTranscript] = useState(false);
+  const [transcript, setTranscript] = useState<string | null>(null);
+  const [isLoadingTranscript, setIsLoadingTranscript] = useState(false);
 
   const isCurrentEpisode = state.currentEpisode?.id === episode.id;
   const isPlaying = isCurrentEpisode && state.isPlaying;
@@ -36,6 +39,38 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
       }
     } else {
       play(episode);
+    }
+  };
+
+  const handleTranscriptClick = async () => {
+    if (showTranscript) {
+      setShowTranscript(false);
+      return;
+    }
+
+    // If we already loaded the transcript, just show it
+    if (transcript !== null) {
+      setShowTranscript(true);
+      return;
+    }
+
+    // Fetch transcript from API
+    if (!episode.wrenEpisodeId) {
+      return;
+    }
+
+    setIsLoadingTranscript(true);
+    try {
+      const response = await fetch(`/api/episodes/${episode.wrenEpisodeId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setTranscript(data.transcript || '');
+        setShowTranscript(true);
+      }
+    } catch (error) {
+      console.error('Failed to fetch transcript:', error);
+    } finally {
+      setIsLoadingTranscript(false);
     }
   };
 
@@ -95,14 +130,55 @@ export function EpisodeCard({ episode, episodeNumber }: EpisodeCardProps) {
               >
                 {episode.description}
               </p>
-              {descriptionNeedsExpansion && (
-                <button
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="text-sm text-[#F97316] hover:text-[#D946EF] transition-colors mt-1 font-medium"
-                >
-                  {isExpanded ? 'Show less' : 'Show more'}
-                </button>
-              )}
+              <div className="flex items-center gap-3 mt-1">
+                {descriptionNeedsExpansion && (
+                  <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="text-sm text-[#F97316] hover:text-[#D946EF] transition-colors font-medium"
+                  >
+                    {isExpanded ? 'Show less' : 'Show more'}
+                  </button>
+                )}
+                {episode.wrenEpisodeId && (
+                  <button
+                    onClick={handleTranscriptClick}
+                    disabled={isLoadingTranscript}
+                    className="text-sm text-[#F97316] hover:text-[#D946EF] transition-colors font-medium flex items-center gap-1 disabled:opacity-50"
+                  >
+                    {isLoadingTranscript ? (
+                      <>
+                        <svg className="animate-spin w-3 h-3" viewBox="0 0 24 24" fill="none">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        {showTranscript ? 'Hide transcript' : 'View transcript'}
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Transcript */}
+          {showTranscript && transcript && (
+            <div className="mt-4 p-4 bg-[#0B0E14] rounded-xl border border-[#202635]">
+              <h4 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
+                <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Transcript
+              </h4>
+              <p className="text-sm text-[#A7B0C0] leading-relaxed whitespace-pre-line">
+                {transcript}
+              </p>
             </div>
           )}
         </div>

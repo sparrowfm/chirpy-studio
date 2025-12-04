@@ -167,6 +167,11 @@ export async function getEpisodesFromRss(feedUrl: string): Promise<DisplayEpisod
         // Only use itunes:duration if available - don't estimate from file size
         // as bitrate varies and estimates are inaccurate
         const durationSeconds = parseDuration(durationStr || '');
+
+        // Extract Wren episode ID from GUID (format: seriesId-episodeId)
+        // e.g., "series_RwUuaXwH28vLQQ9tH5_Ys-ep_1764647891810_wgd9e9qaw"
+        const wrenEpisodeId = guid?.match(/-?(ep_[a-zA-Z0-9_]+)$/)?.[1];
+
         episodes.push({
           id: guid || title,
           title: cleanHtml(title),
@@ -175,6 +180,7 @@ export async function getEpisodesFromRss(feedUrl: string): Promise<DisplayEpisod
           publishedAt: pubDate ? new Date(pubDate) : new Date(),
           durationSeconds,
           formattedDuration: formatDuration(durationSeconds),
+          wrenEpisodeId,
         });
       }
     }
