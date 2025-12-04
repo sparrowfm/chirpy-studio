@@ -5,9 +5,12 @@ import { Wordmark } from '@/components/Wordmark';
 import { SeriesHero } from '@/components/podcasts/SeriesHero';
 import { SubscribeButtons } from '@/components/podcasts/SubscribeButtons';
 import { EpisodeList } from '@/components/podcasts/EpisodeList';
+import { MorePodcasts } from '@/components/podcasts/MorePodcasts';
 import {
   getSeriesBySlug,
   getEpisodesFromRss,
+  getAllPublishedSeries,
+  getCategories,
 } from '@/lib/aviary-api';
 
 interface PageProps {
@@ -21,36 +24,85 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!series) {
     return {
       title: 'Podcast Not Found | Chirpy Studio',
+      robots: { index: false, follow: false },
     };
   }
 
-  const description = series.description || series.tagline || `Listen to ${series.name}`;
+  // Get categories for keywords
+  const categories = getCategories(series);
+
+  // Build rich description
+  const description = series.description || series.tagline || `Listen to ${series.name} - an AI-powered podcast from Chirpy Studio`;
+  const shortDescription = description.length > 160
+    ? description.slice(0, 157) + '...'
+    : description;
+
+  // Build keywords from categories and series info
+  const keywords = [
+    series.name,
+    'podcast',
+    'AI podcast',
+    'Chirpy Studio',
+    ...categories,
+    series.config.content_type === 'fiction' ? 'audio fiction' : 'audio content',
+  ].filter(Boolean);
 
   return {
-    title: `${series.name} | Chirpy Studio`,
-    description,
+    title: `${series.name} | Chirpy Studio Podcast`,
+    description: shortDescription,
+    keywords,
+    authors: [{ name: 'Chirpy Studio' }],
+    creator: 'Chirpy Studio',
+    publisher: 'Chirpy Studio',
+
+    // Block search engines for now
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
+
     openGraph: {
-      title: series.name,
-      description,
+      title: `${series.name} | Chirpy Studio`,
+      description: shortDescription,
       type: 'website',
       siteName: 'Chirpy Studio',
+      locale: 'en_US',
+      url: `https://chirpy.studio/podcasts/${slug}`,
       images: series.key_art_url
         ? [
             {
               url: series.key_art_url,
-              width: 1200,
-              height: 1200,
-              alt: series.name,
+              width: 1400,
+              height: 1400,
+              alt: `${series.name} podcast cover art`,
+              type: 'image/png',
             },
           ]
-        : undefined,
+        : [
+            {
+              url: 'https://chirpy.studio/og-image.png',
+              width: 1200,
+              height: 630,
+              alt: 'Chirpy Studio - AI-Powered Narrative Audio',
+            },
+          ],
     },
+
     twitter: {
       card: 'summary_large_image',
+      site: '@chirpystudio',
+      creator: '@chirpystudio',
       title: series.name,
-      description,
-      images: series.key_art_url ? [series.key_art_url] : undefined,
+      description: shortDescription,
+      images: series.key_art_url
+        ? [{ url: series.key_art_url, alt: `${series.name} podcast cover art` }]
+        : ['https://chirpy.studio/og-image.png'],
     },
+
     alternates: {
       canonical: `https://chirpy.studio/podcasts/${slug}`,
       types: series.config.rss_feed_url
@@ -59,12 +111,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           }
         : undefined,
     },
+
+    other: {
+      'podcast:rss': series.config.rss_feed_url || '',
+    },
   };
 }
 
 export default async function PodcastSeriesPage({ params }: PageProps) {
   const { slug } = await params;
-  const series = await getSeriesBySlug(slug);
+
+  // Fetch series and all published series in parallel
+  const [series, allSeries] = await Promise.all([
+    getSeriesBySlug(slug),
+    getAllPublishedSeries(),
+  ]);
 
   if (!series) {
     notFound();
@@ -102,12 +163,18 @@ export default async function PodcastSeriesPage({ params }: PageProps) {
       )}
 
       {/* Episodes */}
-      <section className="max-w-4xl mx-auto px-6 py-8 pb-32">
+      <section className="max-w-4xl mx-auto px-6 py-8">
         <h2 className="text-2xl font-bold mb-6 text-white">
           {episodes.length} {episodes.length === 1 ? 'Episode' : 'Episodes'}
         </h2>
         <EpisodeList episodes={episodes} />
       </section>
+
+      {/* More from Chirpy Studio */}
+      <MorePodcasts currentSlug={slug} allSeries={allSeries} />
+
+      {/* Bottom padding for sticky player */}
+      <div className="h-24" />
     </div>
   );
 }

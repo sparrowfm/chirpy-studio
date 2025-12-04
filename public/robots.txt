@@ -3,6 +3,9 @@
 User-agent: *
 Allow: /
 
+# Block podcast pages from indexing (temporary - in preview mode)
+Disallow: /podcasts/
+
 # Sitemap
 Sitemap: https://chirpy.studio/sitemap.xml
 

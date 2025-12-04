@@ -55,6 +55,42 @@ export function getRssFeedUrl(slug: string): string {
   return `${RSS_BASE_URL}/feeds/${slug}`;
 }
 
+/** Series with computed slug for URL routing */
+export interface SeriesWithSlug extends Series {
+  slug: string;
+  rss_feed_url: string;
+}
+
+/**
+ * Get all published series (those with starling_feed_id configured)
+ */
+export async function getAllPublishedSeries(): Promise<SeriesWithSlug[]> {
+  try {
+    const { series } = await wrenFetch<{ series: Series[] }>('/api/series', {
+      revalidate: 300,
+    });
+
+    // Filter to series that have a starling_feed_id (published to RSS)
+    return series
+      .filter((s) => s.config.starling_feed_id)
+      .map((s) => {
+        const slug = s.config.starling_feed_id || nameToSlug(s.name);
+        return {
+          ...s,
+          slug,
+          rss_feed_url: s.config.rss_feed_url || getRssFeedUrl(slug),
+          config: {
+            ...s.config,
+            rss_feed_url: s.config.rss_feed_url || getRssFeedUrl(slug),
+          },
+        };
+      });
+  } catch (error) {
+    console.error('Failed to fetch all series:', error);
+    return [];
+  }
+}
+
 /**
  * Get a series by its URL slug (e.g., 'fact-frenzy')
  * Matches by: RSS feed URL slug, starling_feed_id, series ID, or slugified series name
