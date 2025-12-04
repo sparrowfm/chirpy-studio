@@ -83,52 +83,26 @@ export function EpisodeCard({ episode, episodeNumber, seriesSlug }: EpisodeCardP
   return (
     <div className="group relative p-4 sm:p-6 rounded-2xl bg-[#10141D] border border-[#202635] hover:border-[#F97316]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#F97316]/5">
       <div className="flex gap-3 sm:gap-4">
-        {/* Artwork with Play Overlay */}
+        {/* Play Button */}
         <button
           onClick={handlePlayClick}
-          className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden relative group/play"
+          className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#F97316]/20 self-start mt-1"
+          style={{
+            background: isPlaying
+              ? 'linear-gradient(135deg, #D946EF 0%, #F97316 100%)'
+              : 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
+          }}
           aria-label={isPlaying ? `Pause ${episode.title}` : `Play ${episode.title}`}
         >
-          {artworkUrl ? (
-            <Image
-              src={artworkUrl}
-              alt=""
-              width={80}
-              height={80}
-              className="w-full h-full object-cover"
-            />
+          {isPlaying ? (
+            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+            </svg>
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#F97316] to-[#D946EF]" />
+            <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
           )}
-          {/* Play/Pause Overlay */}
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ${
-              isPlaying
-                ? 'bg-black/40'
-                : 'bg-black/0 group-hover/play:bg-black/40'
-            }`}
-          >
-            <div
-              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
-                isPlaying
-                  ? 'scale-100 opacity-100'
-                  : 'scale-75 opacity-0 group-hover/play:scale-100 group-hover/play:opacity-100'
-              }`}
-              style={{
-                background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
-              }}
-            >
-              {isPlaying ? (
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </div>
-          </div>
         </button>
 
         {/* Episode Info */}
@@ -153,12 +127,12 @@ export function EpisodeCard({ episode, episodeNumber, seriesSlug }: EpisodeCardP
               href={`/podcasts/${seriesSlug}/episodes/${episode.id}`}
               className="block"
             >
-              <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 sm:line-clamp-1 group-hover:text-[#F97316] transition-colors hover:text-[#F97316]">
+              <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 sm:line-clamp-1 leading-snug group-hover:text-[#F97316] transition-colors hover:text-[#F97316]">
                 {episode.title}
               </h3>
             </Link>
           ) : (
-            <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 sm:line-clamp-1 group-hover:text-[#F97316] transition-colors">
+            <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 sm:line-clamp-1 leading-snug group-hover:text-[#F97316] transition-colors">
               {episode.title}
             </h3>
           )}

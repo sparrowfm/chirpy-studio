@@ -13,6 +13,7 @@ export function AudioPlayer() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showExpanded, setShowExpanded] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   // Handle expand animation
   useEffect(() => {
@@ -146,15 +147,35 @@ export function AudioPlayer() {
           {state.currentEpisode.title}
         </h2>
 
-        {/* Description preview if available */}
+        {/* Description - tappable to expand */}
         {state.currentEpisode.description && (
-          <p
-            className={`text-sm text-[#A7B0C0] text-center line-clamp-2 mb-6 px-4 max-w-md transition-all duration-300 delay-200 ${
+          <div
+            className={`max-w-md px-4 mb-6 transition-all duration-300 delay-200 ${
               isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
           >
-            {state.currentEpisode.description}
-          </p>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                showFullDescription ? 'max-h-[60vh]' : 'max-h-12'
+              }`}
+            >
+              <p
+                className={`text-sm text-[#A7B0C0] text-center leading-relaxed ${
+                  showFullDescription ? 'overflow-y-auto max-h-[60vh] pr-2' : ''
+                }`}
+              >
+                {state.currentEpisode.description}
+              </p>
+            </div>
+            {state.currentEpisode.description.length > 100 && (
+              <button
+                onClick={() => setShowFullDescription(!showFullDescription)}
+                className="mt-2 text-xs text-[#F97316] hover:text-[#D946EF] transition-colors mx-auto block"
+              >
+                {showFullDescription ? 'Show less' : 'Show more'}
+              </button>
+            )}
+          </div>
         )}
 
         {/* Progress Bar */}
