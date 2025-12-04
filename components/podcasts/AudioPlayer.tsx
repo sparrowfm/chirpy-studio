@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAudioPlayer } from '@/lib/audio-player-context';
 import { formatDuration } from '@/lib/aviary-api';
 
@@ -10,6 +10,26 @@ export function AudioPlayer() {
   const { state, pause, resume, seek, setPlaybackRate, close } = useAudioPlayer();
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [showExpanded, setShowExpanded] = useState(false);
+
+  // Handle expand animation
+  useEffect(() => {
+    if (isExpanded) {
+      setShowExpanded(true);
+      // Trigger animation on next frame
+      requestAnimationFrame(() => {
+        setIsAnimating(true);
+      });
+    } else if (showExpanded) {
+      setIsAnimating(false);
+      // Wait for animation to complete before hiding
+      const timer = setTimeout(() => {
+        setShowExpanded(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isExpanded, showExpanded]);
 
   if (!state.currentEpisode) {
     return null;
@@ -61,148 +81,176 @@ export function AudioPlayer() {
   };
 
   // Expanded full-screen player (mobile-optimized)
-  if (isExpanded) {
-    return (
-      <div className="fixed inset-0 z-50 bg-[#0B0E14] flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#202635]">
-          <button
-            onClick={() => setIsExpanded(false)}
-            className="p-2 -ml-2 text-[#A7B0C0] hover:text-white transition-colors"
-            aria-label="Minimize player"
+  const expandedPlayer = showExpanded && (
+    <div
+      className={`fixed inset-0 z-50 bg-[#0B0E14] flex flex-col transition-all duration-300 ease-out ${
+        isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+      }`}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 py-4 border-b border-[#202635]">
+        <button
+          onClick={() => setIsExpanded(false)}
+          className="p-2 -ml-2 text-[#A7B0C0] hover:text-white transition-colors"
+          aria-label="Minimize player"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <span className="text-sm text-[#A7B0C0]">Now Playing</span>
+        <button
+          onClick={handleClose}
+          className="p-2 -mr-2 text-[#A7B0C0] hover:text-white transition-colors"
+          aria-label="Close player"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col items-center justify-center px-8 pb-8">
+        {/* Album Art Placeholder */}
+        <div
+          className={`w-64 h-64 sm:w-72 sm:h-72 rounded-2xl bg-gradient-to-br from-[#F97316] to-[#D946EF] flex items-center justify-center shadow-2xl shadow-[#F97316]/20 mb-8 transition-all duration-500 delay-100 ${
+            isAnimating ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+          }`}
+        >
+          <svg className="w-24 h-24 text-white/30" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+          </svg>
+        </div>
+
+        {/* Episode Title (full, no truncation) */}
+        <h2
+          className={`text-xl sm:text-2xl font-bold text-white text-center mb-2 px-4 transition-all duration-300 delay-150 ${
+            isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+        >
+          {state.currentEpisode.title}
+        </h2>
+
+        {/* Description preview if available */}
+        {state.currentEpisode.description && (
+          <p
+            className={`text-sm text-[#A7B0C0] text-center line-clamp-2 mb-6 px-4 max-w-md transition-all duration-300 delay-200 ${
+              isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+            }`}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            {state.currentEpisode.description}
+          </p>
+        )}
+
+        {/* Progress Bar */}
+        <div
+          className={`w-full max-w-md mb-4 transition-all duration-300 delay-200 ${
+            isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+        >
+          <div
+            className="h-2 bg-[#202635] rounded-full cursor-pointer group"
+            onClick={handleSeek}
+          >
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#F97316] to-[#D946EF] relative transition-all duration-100"
+              style={{ width: `${progress}%` }}
+            >
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white shadow-lg" />
+            </div>
+          </div>
+          <div className="flex justify-between mt-2 text-sm text-[#A7B0C0] font-mono">
+            <span>{formatDuration(state.currentTime)}</span>
+            <span>{formatDuration(state.duration)}</span>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div
+          className={`flex items-center justify-center gap-6 mt-4 transition-all duration-300 delay-250 ${
+            isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+        >
+          {/* Skip Backward 15s */}
+          <button
+            onClick={skipBackward}
+            className="p-3 text-[#A7B0C0] hover:text-white transition-colors relative"
+            aria-label="Skip back 15 seconds"
+          >
+            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M1 4v6h6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+            <span className="absolute inset-0 flex items-center justify-center text-xs font-bold mt-0.5">15</span>
           </button>
-          <span className="text-sm text-[#A7B0C0]">Now Playing</span>
+
+          {/* Play/Pause Button */}
           <button
-            onClick={handleClose}
-            className="p-2 -mr-2 text-[#A7B0C0] hover:text-white transition-colors"
-            aria-label="Close player"
+            onClick={handlePlayPause}
+            className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
+            }}
+            aria-label={state.isPlaying ? 'Pause' : 'Play'}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            {state.isPlaying ? (
+              <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+              </svg>
+            ) : (
+              <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
+
+          {/* Skip Forward 15s */}
+          <button
+            onClick={skipForward}
+            className="p-3 text-[#A7B0C0] hover:text-white transition-colors relative"
+            aria-label="Skip forward 15 seconds"
+          >
+            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M23 4v6h-6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+            <span className="absolute inset-0 flex items-center justify-center text-xs font-bold mt-0.5">15</span>
           </button>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-8 pb-8">
-          {/* Album Art Placeholder */}
-          <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-2xl bg-gradient-to-br from-[#F97316] to-[#D946EF] flex items-center justify-center shadow-2xl shadow-[#F97316]/20 mb-8">
-            <svg className="w-24 h-24 text-white/30" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-            </svg>
-          </div>
-
-          {/* Episode Title (full, no truncation) */}
-          <h2 className="text-xl sm:text-2xl font-bold text-white text-center mb-2 px-4">
-            {state.currentEpisode.title}
-          </h2>
-
-          {/* Description preview if available */}
-          {state.currentEpisode.description && (
-            <p className="text-sm text-[#A7B0C0] text-center line-clamp-2 mb-6 px-4 max-w-md">
-              {state.currentEpisode.description}
-            </p>
-          )}
-
-          {/* Progress Bar */}
-          <div className="w-full max-w-md mb-4">
-            <div
-              className="h-2 bg-[#202635] rounded-full cursor-pointer group"
-              onClick={handleSeek}
-            >
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-[#F97316] to-[#D946EF] relative transition-all duration-100"
-                style={{ width: `${progress}%` }}
-              >
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white shadow-lg" />
-              </div>
-            </div>
-            <div className="flex justify-between mt-2 text-sm text-[#A7B0C0] font-mono">
-              <span>{formatDuration(state.currentTime)}</span>
-              <span>{formatDuration(state.duration)}</span>
-            </div>
-          </div>
-
-          {/* Controls */}
-          <div className="flex items-center justify-center gap-6 mt-4">
-            {/* Skip Backward 15s */}
+        {/* Playback Speed */}
+        <div
+          className={`flex items-center gap-2 mt-6 transition-all duration-300 delay-300 ${
+            isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+        >
+          {PLAYBACK_RATES.map((rate) => (
             <button
-              onClick={skipBackward}
-              className="p-3 text-[#A7B0C0] hover:text-white transition-colors relative"
-              aria-label="Skip back 15 seconds"
+              key={rate}
+              onClick={() => setPlaybackRate(rate)}
+              className={`px-3 py-1.5 text-sm font-mono rounded-full transition-colors ${
+                state.playbackRate === rate
+                  ? 'bg-gradient-to-r from-[#F97316] to-[#D946EF] text-white'
+                  : 'text-[#A7B0C0] hover:text-white border border-[#202635] hover:border-[#F97316]/50'
+              }`}
             >
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M1 4v6h6" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-xs font-bold mt-0.5">15</span>
+              {rate}x
             </button>
-
-            {/* Play/Pause Button */}
-            <button
-              onClick={handlePlayPause}
-              className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, #F97316 0%, #D946EF 100%)',
-              }}
-              aria-label={state.isPlaying ? 'Pause' : 'Play'}
-            >
-              {state.isPlaying ? (
-                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-              ) : (
-                <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
-
-            {/* Skip Forward 15s */}
-            <button
-              onClick={skipForward}
-              className="p-3 text-[#A7B0C0] hover:text-white transition-colors relative"
-              aria-label="Skip forward 15 seconds"
-            >
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M23 4v6h-6" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-xs font-bold mt-0.5">15</span>
-            </button>
-          </div>
-
-          {/* Playback Speed */}
-          <div className="flex items-center gap-2 mt-6">
-            {PLAYBACK_RATES.map((rate) => (
-              <button
-                key={rate}
-                onClick={() => setPlaybackRate(rate)}
-                className={`px-3 py-1.5 text-sm font-mono rounded-full transition-colors ${
-                  state.playbackRate === rate
-                    ? 'bg-gradient-to-r from-[#F97316] to-[#D946EF] text-white'
-                    : 'text-[#A7B0C0] hover:text-white border border-[#202635] hover:border-[#F97316]/50'
-                }`}
-              >
-                {rate}x
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 
-  // Collapsed miniplayer
+  // Render both - expanded player animates in/out, miniplayer always visible underneath
   return (
-    <div
-      className="fixed bottom-0 left-0 right-0 z-50 bg-[#10141D]/95 backdrop-blur-lg border-t border-[#202635] shadow-2xl shadow-black/50 cursor-pointer sm:cursor-default"
-      onClick={handleMiniplayerClick}
-    >
+    <>
+      {expandedPlayer}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-50 bg-[#10141D]/95 backdrop-blur-lg border-t border-[#202635] shadow-2xl shadow-black/50 cursor-pointer sm:cursor-default"
+        onClick={handleMiniplayerClick}
+      >
       <div className="max-w-4xl mx-auto px-4 py-3">
         {/* Progress Bar */}
         <div
@@ -344,6 +392,7 @@ export function AudioPlayer() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
