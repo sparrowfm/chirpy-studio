@@ -143,12 +143,21 @@ export default async function PodcastSeriesPage({ params }: PageProps) {
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Wordmark />
           </Link>
-          <Link
-            href="/"
-            className="text-sm text-[#A7B0C0] hover:text-white transition-colors"
-          >
-            &larr; Back to Home
-          </Link>
+          <div className="flex items-center gap-4 text-sm">
+            <Link
+              href="/podcasts"
+              className="text-[#A7B0C0] hover:text-white transition-colors"
+            >
+              All Podcasts
+            </Link>
+            <span className="text-[#202635]">|</span>
+            <Link
+              href="/"
+              className="text-[#A7B0C0] hover:text-white transition-colors"
+            >
+              Home
+            </Link>
+          </div>
         </div>
       </header>
 

@@ -124,12 +124,12 @@ export function EpisodeCard({ episode, episodeNumber, seriesSlug }: EpisodeCardP
               href={`/podcasts/${seriesSlug}/episodes/${episode.id}`}
               className="block"
             >
-              <h3 className="text-lg font-semibold text-white mb-2 truncate group-hover:text-[#F97316] transition-colors hover:text-[#F97316]">
+              <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 sm:line-clamp-1 group-hover:text-[#F97316] transition-colors hover:text-[#F97316]">
                 {episode.title}
               </h3>
             </Link>
           ) : (
-            <h3 className="text-lg font-semibold text-white mb-2 truncate group-hover:text-[#F97316] transition-colors">
+            <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 sm:line-clamp-1 group-hover:text-[#F97316] transition-colors">
               {episode.title}
             </h3>
           )}
